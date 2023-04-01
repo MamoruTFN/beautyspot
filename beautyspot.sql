@@ -115,19 +115,19 @@ CREATE TABLE `store` (
   `phoneNumber` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `type` enum('Nail','Hair','Spa') COLLATE utf8_unicode_ci NOT NULL,
   `StoreID` int(11) NOT NULL,
-  `SubdistirctID` int(11) NOT NULL,
+  `subdistrictID` int(11) NOT NULL,
   `UserID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subdistirct`
+-- Table structure for table `subdistrict`
 --
 
-CREATE TABLE `subdistirct` (
+CREATE TABLE `subdistrict` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `SubdistirctID` int(11) NOT NULL,
+  `subdistrictID` int(11) NOT NULL,
   `DistrictID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -201,15 +201,15 @@ ALTER TABLE `role`
 ALTER TABLE `store`
   ADD PRIMARY KEY (`StoreID`),
   ADD UNIQUE KEY `TC_Store112` (`UserID`),
-  ADD KEY `TC_Store124` (`SubdistirctID`),
+  ADD KEY `TC_Store124` (`subdistrictID`),
   ADD KEY `TC_Store123` (`UserID`);
 
 --
--- Indexes for table `subdistirct`
+-- Indexes for table `subdistrict`
 --
-ALTER TABLE `subdistirct`
-  ADD PRIMARY KEY (`SubdistirctID`),
-  ADD KEY `TC_Subdistirct125` (`DistrictID`);
+ALTER TABLE `subdistrict`
+  ADD PRIMARY KEY (`subdistrictID`),
+  ADD KEY `TC_subdistrict125` (`DistrictID`);
 
 --
 -- Indexes for table `user`
@@ -242,8 +242,8 @@ ALTER TABLE `role`
 ALTER TABLE `store`
   MODIFY `StoreID` int(11) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE `subdistirct`
-  MODIFY `SubdistirctID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `subdistrict`
+  MODIFY `subdistrictID` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `user`
   MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT;
@@ -273,14 +273,14 @@ ALTER TABLE `reservation`
 -- Constraints for table `store`
 --
 ALTER TABLE `store`
-  ADD CONSTRAINT `FK_Store55` FOREIGN KEY (`SubdistirctID`) REFERENCES `subdistirct` (`SubdistirctID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_Store55` FOREIGN KEY (`subdistrictID`) REFERENCES `subdistrict` (`subdistrictID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_Store59` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `subdistirct`
+-- Constraints for table `subdistrict`
 --
-ALTER TABLE `subdistirct`
-  ADD CONSTRAINT `FK_Subdistirct45` FOREIGN KEY (`DistrictID`) REFERENCES `district` (`DistrictID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `subdistrict`
+  ADD CONSTRAINT `FK_subdistrict45` FOREIGN KEY (`DistrictID`) REFERENCES `district` (`DistrictID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user`
