@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Apr 1, 2023, 2:32:12 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="beautyspot" name="th.ac.ku.kps.eng.cpe.soa.project.model.Payment" optimistic-lock="none" table="payment">
+        <id name="paymentId" type="java.lang.Integer">
+            <column name="PaymentID"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Promotion" fetch="select" name="promotion">
+            <column name="PromotionID" not-null="true" unique="true"/>
+        </many-to-one>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Reservation" fetch="select" name="reservation">
+            <column name="ReservationID" not-null="true" unique="true"/>
+        </many-to-one>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.User" fetch="select" name="user">
+            <column name="UserID" not-null="true"/>
+        </many-to-one>
+        <property name="type" type="string">
+            <column length="8" name="type" not-null="true"/>
+        </property>
+        <property name="price" type="double">
+            <column name="price" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property name="currentDate" type="date">
+            <column length="10" name="currentDate" not-null="true"/>
+        </property>
+        <property name="description" type="string">
+            <column name="description" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

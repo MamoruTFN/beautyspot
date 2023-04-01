@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Apr 1, 2023, 2:32:12 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="beautyspot" name="th.ac.ku.kps.eng.cpe.soa.project.model.Reservation" optimistic-lock="none" table="reservation">
+        <id name="reservationId" type="java.lang.Integer">
+            <column name="ReservationID"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Promotion" fetch="select" name="promotion">
+            <column name="PromotionID" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Store" fetch="select" name="store">
+            <column name="StoreID" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.User" fetch="select" name="user">
+            <column name="UserID" not-null="true"/>
+        </many-to-one>
+        <property name="currentDate" type="date">
+            <column length="10" name="currentDate" not-null="true"/>
+        </property>
+        <property name="reservationDate" type="date">
+            <column length="10" name="reservationDate" not-null="true"/>
+        </property>
+        <property name="description" type="string">
+            <column name="description" not-null="true"/>
+        </property>
+        <property name="otherGroupId" type="java.lang.Integer">
+            <column name="otherGroupId"/>
+        </property>
+        <bag fetch="select" inverse="true" lazy="true" name="payments" table="payment">
+            <key>
+                <column name="ReservationID" not-null="true" unique="true"/>
+            </key>
+            <one-to-many class="th.ac.ku.kps.eng.cpe.soa.project.model.Payment"/>
+        </bag>
+    </class>
+</hibernate-mapping>

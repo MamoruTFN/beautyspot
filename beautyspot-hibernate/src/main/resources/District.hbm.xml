@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Apr 1, 2023, 2:32:12 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="beautyspot" name="model.District" optimistic-lock="none" table="district">
+        <id name="districtId" type="java.lang.Integer">
+            <column name="DistrictID"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="model.Province" fetch="select" name="province">
+            <column name="ProvinceID" not-null="true"/>
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" not-null="true"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="subdistricts" table="subdistrict">
+            <key>
+                <column name="DistrictID" not-null="true"/>
+            </key>
+            <one-to-many class="model.Subdistrict"/>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Apr 1, 2023, 2:32:12 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="beautyspot" name="model.User" optimistic-lock="none" table="user">
+        <id name="userId" type="java.lang.Integer">
+            <column name="UserID"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="model.Role" fetch="select" name="role">
+            <column name="RoleID" not-null="true"/>
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" not-null="true"/>
+        </property>
+        <property name="email" type="string">
+            <column name="email" not-null="true"/>
+        </property>
+        <property name="pwd" type="string">
+            <column name="pwd" not-null="true"/>
+        </property>
+        <property name="phonenumber" type="string">
+            <column name="phonenumber" not-null="true"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="stores" table="store">
+            <key>
+                <column name="UserID" unique="true"/>
+            </key>
+            <one-to-many class="model.Store"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="payments" table="payment">
+            <key>
+                <column name="UserID" not-null="true"/>
+            </key>
+            <one-to-many class="model.Payment"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="reservations" table="reservation">
+            <key>
+                <column name="UserID" not-null="true"/>
+            </key>
+            <one-to-many class="model.Reservation"/>
+        </set>
+    </class>
+</hibernate-mapping>

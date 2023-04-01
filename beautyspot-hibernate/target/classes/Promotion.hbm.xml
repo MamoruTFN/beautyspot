@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Apr 1, 2023, 2:32:12 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="beautyspot" name="model.Promotion" optimistic-lock="none" table="promotion">
+        <id name="promotionId" type="java.lang.Integer">
+            <column name="PromotionID"/>
+            <generator class="identity"/>
+        </id>
+        <property name="name" type="string">
+            <column name="name" not-null="true"/>
+        </property>
+        <property name="percentDiscount" type="double">
+            <column name="percentDiscount" not-null="true" precision="22" scale="0"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="reservations" table="reservation">
+            <key>
+                <column name="PromotionID" not-null="true"/>
+            </key>
+            <one-to-many class="model.Reservation"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="payments" table="payment">
+            <key>
+                <column name="PromotionID" not-null="true" unique="true"/>
+            </key>
+            <one-to-many class="model.Payment"/>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2023 at 06:17 PM
+-- Generation Time: Apr 01, 2023 at 06:17 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -102,6 +102,15 @@ CREATE TABLE `role` (
   `RoleID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`name`, `RoleID`) VALUES
+('ROLE_Staff', 1),
+('ROLE_Customer', 2),
+('ROLE_Admin', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -145,6 +154,17 @@ CREATE TABLE `user` (
   `UserID` int(11) NOT NULL,
   `RoleID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`name`, `email`, `pwd`, `phonenumber`, `UserID`, `RoleID`) VALUES
+('user1', 'user1@hotmail.com', '$2a$10$KblNhJga0KjWFe3pPsz2FeWiJ1uU9qVMoCOJ2M.FxCjSnbXuivsPm', '0896345911', 1, 2),
+('user2', 'user2@hotmail.com', '$2a$10$KblNhJga0KjWFe3pPsz2FeWiJ1uU9qVMoCOJ2M.FxCjSnbXuivsPm', '0896345911', 2, 2),
+('admin', 'admin@hotmail.com', '$2a$10$KblNhJga0KjWFe3pPsz2FeWiJ1uU9qVMoCOJ2M.FxCjSnbXuivsPm', '0896345911', 3, 3),
+('staff1', 'staff1@hotmail.com', '$2a$10$KblNhJga0KjWFe3pPsz2FeWiJ1uU9qVMoCOJ2M.FxCjSnbXuivsPm', '0896345911', 4, 1),
+('staff2', 'staff2@hotmail.com', '$2a$10$KblNhJga0KjWFe3pPsz2FeWiJ1uU9qVMoCOJ2M.FxCjSnbXuivsPm', '0896345911', 5, 1);
 
 --
 -- Indexes for dumped tables
@@ -219,34 +239,67 @@ ALTER TABLE `user`
   ADD KEY `TC_User126` (`RoleID`);
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `district`
 --
 ALTER TABLE `district`
   MODIFY `DistrictID` int(11) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT for table `payment`
+--
 ALTER TABLE `payment`
   MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT for table `promotion`
+--
 ALTER TABLE `promotion`
   MODIFY `PromotionID` int(11) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT for table `province`
+--
 ALTER TABLE `province`
   MODIFY `ProvinceID` int(11) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT for table `reservation`
+--
 ALTER TABLE `reservation`
   MODIFY `ReservationID` int(11) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT for table `role`
+--
 ALTER TABLE `role`
-  MODIFY `RoleID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `RoleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
+--
+-- AUTO_INCREMENT for table `store`
+--
 ALTER TABLE `store`
   MODIFY `StoreID` int(11) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT for table `subdistrict`
+--
 ALTER TABLE `subdistrict`
   MODIFY `subdistrictID` int(11) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT for table `user`
+--
 ALTER TABLE `user`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Constraints for dumped tables
+--
+
 --
 -- Constraints for table `district`
 --

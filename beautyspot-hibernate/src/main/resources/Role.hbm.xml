@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Apr 1, 2023, 2:32:12 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="beautyspot" name="model.Role" optimistic-lock="none" table="role">
+        <id name="roleId" type="java.lang.Integer">
+            <column name="RoleID"/>
+            <generator class="identity"/>
+        </id>
+        <property name="name" type="string">
+            <column name="name" not-null="true"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="users" table="user">
+            <key>
+                <column name="RoleID" not-null="true"/>
+            </key>
+            <one-to-many class="model.User"/>
+        </set>
+    </class>
+</hibernate-mapping>
