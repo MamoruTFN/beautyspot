@@ -128,7 +128,7 @@ public class ReservationRestController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Response<String>> deleteReseevationById(@PathVariable("id") int id) {
+	public ResponseEntity<Response<String>> deleteReservationById(@PathVariable("id") int id) {
 		Response<String> res = new Response<String>();
 		try {
 			Reservation reservation = reservationService.findById(id);

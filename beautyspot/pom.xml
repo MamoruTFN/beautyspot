@@ -17,6 +17,7 @@
 	<description>project for SOA</description>
 	<properties>
 		<java.version>11</java.version>
+		<start-class>th.ac.ku.kps.eng.cpe.soa.project.beautyspot.BeautyspotApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
