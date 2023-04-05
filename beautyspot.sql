@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `beautyspot`
 --
-
+CREATE DATABASE IF NOT EXISTS `beautyspot` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `beautyspot`;
 -- --------------------------------------------------------
 
 --
