@@ -9,9 +9,6 @@
         <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Subdistrict" fetch="select" name="subdistrict">
             <column name="subdistrictID" not-null="true"/>
         </many-to-one>
-        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.User" fetch="select" name="user">
-            <column name="UserID" unique="true"/>
-        </many-to-one>
         <property name="name" type="string">
             <column name="name" not-null="true"/>
         </property>

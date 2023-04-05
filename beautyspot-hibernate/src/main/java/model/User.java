@@ -1,5 +1,5 @@
 package model;
-// Generated Apr 1, 2023, 2:32:11 PM by Hibernate Tools 5.6.3.Final
+// Generated Apr 5, 2023, 1:27:16 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,6 @@ public class User implements java.io.Serializable {
 	private Role role;
 	private String name;
 	private String email;
-	private String pwd;
 	private String phonenumber;
 	private Set stores = new HashSet(0);
 	private Set payments = new HashSet(0);
@@ -22,20 +21,17 @@ public class User implements java.io.Serializable {
 	public User() {
 	}
 
-	public User(Role role, String name, String email, String pwd, String phonenumber) {
+	public User(Role role, String name, String email, String phonenumber) {
 		this.role = role;
 		this.name = name;
 		this.email = email;
-		this.pwd = pwd;
 		this.phonenumber = phonenumber;
 	}
 
-	public User(Role role, String name, String email, String pwd, String phonenumber, Set stores, Set payments,
-			Set reservations) {
+	public User(Role role, String name, String email, String phonenumber, Set stores, Set payments, Set reservations) {
 		this.role = role;
 		this.name = name;
 		this.email = email;
-		this.pwd = pwd;
 		this.phonenumber = phonenumber;
 		this.stores = stores;
 		this.payments = payments;
@@ -72,14 +68,6 @@ public class User implements java.io.Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPwd() {
-		return this.pwd;
-	}
-
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
 	}
 
 	public String getPhonenumber() {

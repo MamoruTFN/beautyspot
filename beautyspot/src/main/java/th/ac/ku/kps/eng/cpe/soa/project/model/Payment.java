@@ -35,6 +35,13 @@ public class Payment implements java.io.Serializable {
 		this.currentDate = currentDate;
 		this.description = description;
 	}
+	
+	public void clone(Payment other) {
+		this.type = other.type;
+		this.price = other.price;
+		this.currentDate = other.currentDate;
+		this.description = other.description;
+	}
 
 	public Integer getPaymentId() {
 		return this.paymentId;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2023 at 06:17 PM
+-- Generation Time: Apr 05, 2023 at 08:25 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -149,7 +149,6 @@ CREATE TABLE `subdistrict` (
 CREATE TABLE `user` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `pwd` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `phonenumber` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `UserID` int(11) NOT NULL,
   `RoleID` int(11) NOT NULL
@@ -159,12 +158,12 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`name`, `email`, `pwd`, `phonenumber`, `UserID`, `RoleID`) VALUES
-('user1', 'user1@hotmail.com', '$2a$10$KblNhJga0KjWFe3pPsz2FeWiJ1uU9qVMoCOJ2M.FxCjSnbXuivsPm', '0896345911', 1, 2),
-('user2', 'user2@hotmail.com', '$2a$10$KblNhJga0KjWFe3pPsz2FeWiJ1uU9qVMoCOJ2M.FxCjSnbXuivsPm', '0896345911', 2, 2),
-('admin', 'admin@hotmail.com', '$2a$10$KblNhJga0KjWFe3pPsz2FeWiJ1uU9qVMoCOJ2M.FxCjSnbXuivsPm', '0896345911', 3, 3),
-('staff1', 'staff1@hotmail.com', '$2a$10$KblNhJga0KjWFe3pPsz2FeWiJ1uU9qVMoCOJ2M.FxCjSnbXuivsPm', '0896345911', 4, 1),
-('staff2', 'staff2@hotmail.com', '$2a$10$KblNhJga0KjWFe3pPsz2FeWiJ1uU9qVMoCOJ2M.FxCjSnbXuivsPm', '0896345911', 5, 1);
+INSERT INTO `user` (`name`, `email`, `phonenumber`, `UserID`, `RoleID`) VALUES
+('user1', 'user1@hotmail.com', '0896345911', 1, 2),
+('user2', 'user2@hotmail.com', '0896345911', 2, 2),
+('admin', 'admin@hotmail.com', '0896345911', 3, 3),
+('staff1', 'staff1@hotmail.com', '0896345911', 4, 1),
+('staff2', 'staff2@hotmail.com', '0896345911', 5, 1);
 
 --
 -- Indexes for dumped tables

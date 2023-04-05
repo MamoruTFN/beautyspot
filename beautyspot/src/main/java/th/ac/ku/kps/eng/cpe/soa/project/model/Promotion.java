@@ -2,9 +2,9 @@ package th.ac.ku.kps.eng.cpe.soa.project.model;
 // Generated Apr 1, 2023, 2:32:11 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -37,6 +37,11 @@ public class Promotion implements java.io.Serializable {
 		this.percentDiscount = percentDiscount;
 		this.reservations = reservations;
 		this.payments = payments;
+	}
+	
+	public void clone(Promotion other) {
+		this.name = other.name;
+		this.percentDiscount = other.percentDiscount;
 	}
 
 	public Integer getPromotionId() {

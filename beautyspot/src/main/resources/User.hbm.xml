@@ -15,9 +15,6 @@
         <property name="email" type="string">
             <column name="email" not-null="true"/>
         </property>
-        <property name="pwd" type="string">
-            <column name="pwd" not-null="true"/>
-        </property>
         <property name="phonenumber" type="string">
             <column name="phonenumber" not-null="true"/>
         </property>

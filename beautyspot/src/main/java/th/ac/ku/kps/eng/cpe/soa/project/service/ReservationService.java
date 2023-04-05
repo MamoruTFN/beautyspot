@@ -3,12 +3,13 @@ package th.ac.ku.kps.eng.cpe.soa.project.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import io.swagger.v3.oas.annotations.servers.Server;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Reservation;
 import th.ac.ku.kps.eng.cpe.soa.project.repository.ReservationRepository;
 
-@Server
+@Service
 public class ReservationService {
 	@Autowired
 	private ReservationRepository reservationRepository;

@@ -3,9 +3,8 @@ package th.ac.ku.kps.eng.cpe.soa.project.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,8 +16,6 @@ public class Store implements java.io.Serializable {
 	private Integer storeId;
 	@JsonIgnore
 	private Subdistrict subdistrict;
-	@JsonIgnore
-	private User user;
 	private String name;
 	private Date openTime;
 	private Date closeTime;
@@ -38,6 +35,14 @@ public class Store implements java.io.Serializable {
 		this.phoneNumber = phoneNumber;
 		this.type = type;
 	}
+	
+	public void clone(Store other) {
+		this.name = other.name;
+		this.openTime = other.openTime;
+		this.closeTime = other.closeTime;
+		this.phoneNumber = other.phoneNumber;
+		this.type = other.type;
+	}
 
 	public Integer getStoreId() {
 		return storeId;
@@ -53,14 +58,6 @@ public class Store implements java.io.Serializable {
 
 	public void setSubdistrict(Subdistrict subdistrict) {
 		this.subdistrict = subdistrict;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public String getName() {
