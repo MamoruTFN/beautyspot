@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generated Apr 5, 2023, 6:40:37 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class catalog="beautyspot" name="model.Employee" optimistic-lock="none" table="employee">
+    <class catalog="beautyspot" name="th.ac.ku.kps.eng.cpe.soa.project.model.Employee" optimistic-lock="none" table="employee">
         <id name="employeeId" type="java.lang.Integer">
             <column name="employeeId"/>
             <generator class="identity"/>
         </id>
-        <many-to-one class="model.Role" fetch="select" name="role">
+        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Role" fetch="select" name="role">
             <column name="RoleID" not-null="true"/>
         </many-to-one>
-        <many-to-one class="model.Store" fetch="select" name="store">
+        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Store" fetch="select" name="store">
             <column name="storeId" not-null="true"/>
         </many-to-one>
         <property name="name" type="string">

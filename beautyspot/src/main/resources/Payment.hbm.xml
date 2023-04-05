@@ -9,7 +9,7 @@
         <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Customer" fetch="select" name="customer">
             <column name="customerId" not-null="true"/>
         </many-to-one>
-        <many-to-one class="model.Promotion" fetch="select" name="promotion">
+        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Promotion" fetch="select" name="promotion">
             <column name="PromotionID" not-null="true" unique="true"/>
         </many-to-one>
         <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Reservation" fetch="select" name="reservation">
