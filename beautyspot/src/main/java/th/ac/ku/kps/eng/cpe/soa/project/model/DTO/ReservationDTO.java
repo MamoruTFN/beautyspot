@@ -10,12 +10,11 @@ public class ReservationDTO {
 	private Date currentDate;
 	private Date reservationDate;
 	private String description;
-	private Integer otherGroupId;
 	public ReservationDTO() {
 		super();
 	}
 	public ReservationDTO(String firstName, String lastName, String tel, Date currentDate, Date reservationDate,
-			String description, Integer otherGroupId) {
+			String description) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -23,7 +22,7 @@ public class ReservationDTO {
 		this.currentDate = currentDate;
 		this.reservationDate = reservationDate;
 		this.description = description;
-		this.otherGroupId = otherGroupId;
+
 	}
 	public String getFirstName() {
 		return firstName;
@@ -61,12 +60,7 @@ public class ReservationDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Integer getOtherGroupId() {
-		return otherGroupId;
-	}
-	public void setOtherGroupId(Integer otherGroupId) {
-		this.otherGroupId = otherGroupId;
-	}
+
 	
 	
 

@@ -27,6 +27,7 @@ import th.ac.ku.kps.eng.cpe.soa.project.model.Customer;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Promotion;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Reservation;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Store;
+import th.ac.ku.kps.eng.cpe.soa.project.model.DTO.ReservationDTO;
 import th.ac.ku.kps.eng.cpe.soa.project.service.PromotionService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.ReservationService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.StoreService;
@@ -70,17 +71,21 @@ public class ReservationRestController {
 	}
 
 	@PostMapping("/")
-	public ResponseEntity<Response<Reservation>> createReservation(@Valid @RequestBody Reservation reservation,
-			@RequestParam("customerId") int customerId, @RequestParam("storeId") int storeId,
-			@RequestParam("promotionId") int promotionId) {
+	public ResponseEntity<Response<Reservation>> createReservation(@Valid @RequestBody ReservationDTO reservationDTO,
+			@RequestParam("storeId") int storeId, @RequestParam("promotionId") int promotionId) {
 		Response<Reservation> res = new Response<>();
 		try {
-			Customer customer = customerService.findById(customerId);
+			Reservation reservation = new Reservation();
+			Customer customer = new Customer();
+			customer.cloneDto(reservationDTO);
+			customerService.save(customer);
 			Store store = storeService.findById(storeId);
 			Promotion promotion = promotionService.findById(promotionId);
+			reservation.cloneDto(reservationDTO);
 			reservation.setCustomer(customer);
-			reservation.setStore(store);
 			reservation.setPromotion(promotion);
+			reservation.setStore(store);
+			
 			reservationService.save(reservation);
 			res.setMessage("Create Success");
 			res.setBody(reservation);
@@ -128,7 +133,7 @@ public class ReservationRestController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Response<String>> deleteReservationById(@PathVariable("id") int id) {
+	public ResponseEntity<Response<String>> deleteReseevationById(@PathVariable("id") int id) {
 		Response<String> res = new Response<String>();
 		try {
 			Reservation reservation = reservationService.findById(id);
