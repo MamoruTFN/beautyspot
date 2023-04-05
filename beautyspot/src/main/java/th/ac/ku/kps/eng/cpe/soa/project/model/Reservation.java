@@ -1,5 +1,5 @@
 package th.ac.ku.kps.eng.cpe.soa.project.model;
-// Generated Apr 6, 2023, 12:03:22 AM by Hibernate Tools 5.6.3.Final
+// Generated Apr 5, 2023, 5:31:43 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,14 +19,13 @@ public class Reservation implements java.io.Serializable {
 	private Customer customer;
 	@JsonIgnore
 	private Promotion promotion;
-	@JsonIgnore
 	private Store store;
 	private Date currentDate;
 	private Date reservationDate;
 	private String description;
 	private Integer otherGroupId;
 	@JsonIgnore
-	private List<Payment> payments = new ArrayList<Payment>();
+	private List<Payment> payments = new ArrayList<>();
 
 	public Reservation() {
 	}
@@ -53,13 +52,6 @@ public class Reservation implements java.io.Serializable {
 		this.description = description;
 		this.otherGroupId = otherGroupId;
 		this.payments = payments;
-	}
-	
-	public void clone(Reservation other) {
-		this.currentDate = other.currentDate;
-		this.reservationDate = other.reservationDate;
-		this.description = other.description;
-		this.otherGroupId = other.otherGroupId;
 	}
 
 	public Integer getReservationId() {

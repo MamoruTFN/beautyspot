@@ -1,7 +1,5 @@
 package th.ac.ku.kps.eng.cpe.soa.project.api.service;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,22 +55,6 @@ public class StoreRestController {
 		res.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
 		res.setBody(responObject);
 		return new ResponseEntity<Response<ObjectNode>>(res, res.getHttpStatus());
-	}
-	
-	@GetMapping("/")
-	public ResponseEntity<Response<List<Store>>> findAll(){
-		Response<List<Store>> res = new Response<>();
-		try {
-			List<Store> stores = storeService.findAll();
-			res.setMessage("find success");
-			res.setBody(stores);
-			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<List<Store>>>(res, res.getHttpStatus());
-		}catch (Exception ex) {
-			res.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
-			res.setBody(null);
-			return new ResponseEntity<Response<List<Store>>>(res, res.getHttpStatus());
-		}
 	}
 	
 	@GetMapping("/{id}")

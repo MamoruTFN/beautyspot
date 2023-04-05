@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Apr 6, 2023, 12:03:22 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 5, 2023, 5:31:43 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class catalog="beautyspot" name="th.ac.ku.kps.eng.cpe.soa.project.model.Reservation" optimistic-lock="none" table="reservation">
         <id name="reservationId" type="java.lang.Integer">
@@ -18,8 +18,8 @@
         <property name="currentDate" type="date">
             <column length="10" name="currentDate" not-null="true"/>
         </property>
-        <property name="reservationDate" type="timestamp">
-            <column length="19" name="reservationDate" not-null="true"/>
+        <property name="reservationDate" type="date">
+            <column length="10" name="reservationDate" not-null="true"/>
         </property>
         <property name="description" type="string">
             <column name="description" not-null="true"/>

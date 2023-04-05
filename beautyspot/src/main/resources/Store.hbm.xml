@@ -1,54 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Apr 6, 2023, 12:03:22 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 5, 2023, 6:40:37 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class catalog="beautyspot"
-		name="th.ac.ku.kps.eng.cpe.soa.project.model.Store"
-		optimistic-lock="none" table="store">
-		<id name="storeId" type="java.lang.Integer">
-			<column name="StoreID" />
-			<generator class="identity" />
-		</id>
-		<many-to-one
-			class="th.ac.ku.kps.eng.cpe.soa.project.model.Subdistrict"
-			fetch="select" name="subdistrict">
-			<column name="subdistrictID" not-null="true" />
-		</many-to-one>
-		<property name="number" type="string">
-			<column length="10" name="number" not-null="true" />
-		</property>
-		<property name="road" type="string">
-			<column length="250" name="road" not-null="true" />
-		</property>
-		<property name="name" type="string">
-			<column name="name" not-null="true" />
-		</property>
-		<property name="openTime" type="time">
-			<column length="8" name="openTime" not-null="true" />
-		</property>
-		<property name="closeTime" type="time">
-			<column length="8" name="closeTime" not-null="true" />
-		</property>
-		<property name="phoneNumber" type="string">
-			<column name="phoneNumber" not-null="true" />
-		</property>
-		<property name="type" type="string">
-			<column length="5" name="type" not-null="true" />
-		</property>
-		<bag fetch="select" inverse="true" lazy="true" name="reservations"
-			table="reservation">
-			<key>
-				<column name="StoreID" not-null="true" />
-			</key>
-			<one-to-many
-				class="th.ac.ku.kps.eng.cpe.soa.project.model.Reservation" />
-		</bag>
-		<bag fetch="select" inverse="true" lazy="true" name="employees"
-			table="employee">
-			<key>
-				<column name="storeId" not-null="true" />
-			</key>
-			<one-to-many
-				class="th.ac.ku.kps.eng.cpe.soa.project.model.Employee" />
-		</bag>
-	</class>
+    <class catalog="beautyspot" name="th.ac.ku.kps.eng.cpe.soa.project.model.Store" optimistic-lock="none" table="store">
+        <id name="storeId" type="java.lang.Integer">
+            <column name="StoreID"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Subdistrict" fetch="select" name="subdistrict">
+            <column name="subdistrictID" not-null="true"/>
+        </many-to-one>
+        <property name="number" type="string">
+            <column length="10" name="number" not-null="true"/>
+        </property>
+        <property name="road" type="string">
+            <column length="250" name="road" not-null="true"/>
+        </property>
+        <property name="name" type="string">
+            <column name="name" not-null="true"/>
+        </property>
+        <property name="openTime" type="date">
+            <column length="10" name="openTime" not-null="true"/>
+        </property>
+        <property name="closeTime" type="date">
+            <column length="10" name="closeTime" not-null="true"/>
+        </property>
+        <property name="phoneNumber" type="string">
+            <column name="phoneNumber" not-null="true"/>
+        </property>
+        <property name="type" type="string">
+            <column length="5" name="type" not-null="true"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="reservations" table="reservation">
+            <key>
+                <column name="StoreID" not-null="true"/>
+            </key>
+            <one-to-many class="th.ac.ku.kps.eng.cpe.soa.project.model.Reservation"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="employees" table="employee">
+            <key>
+                <column name="storeId" not-null="true"/>
+            </key>
+            <one-to-many class="th.ac.ku.kps.eng.cpe.soa.project.model.Employee"/>
+        </set>
+    </class>
 </hibernate-mapping>
