@@ -1,5 +1,6 @@
 package th.ac.ku.kps.eng.cpe.soa.project.api.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -25,9 +26,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import th.ac.ku.kps.eng.cpe.soa.project.api.util.Response;
+import th.ac.ku.kps.eng.cpe.soa.project.model.District;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Province;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Store;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Subdistrict;
-
+import th.ac.ku.kps.eng.cpe.soa.project.model.DTO.StoreDTO;
+import th.ac.ku.kps.eng.cpe.soa.project.service.DistrictService;
+import th.ac.ku.kps.eng.cpe.soa.project.service.ProvinceService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.StoreService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.SubdistrictService;
 
@@ -39,6 +44,10 @@ public class StoreRestController {
 	private StoreService storeService;
 	@Autowired
 	private SubdistrictService subdistrictService;
+	@Autowired
+	private DistrictService districtService;
+	@Autowired
+	private ProvinceService provinceService;
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -60,19 +69,51 @@ public class StoreRestController {
 	}
 	
 	@GetMapping("/")
-	public ResponseEntity<Response<List<Store>>> findAll(){
-		Response<List<Store>> res = new Response<>();
+	public ResponseEntity<Response<List<StoreDTO>>> findAll(){
+		Response<List<StoreDTO>> res = new Response<>();
 		try {
+			List<StoreDTO> dtos = new ArrayList<StoreDTO>();
 			List<Store> stores = storeService.findAll();
+			List<Subdistrict> subdistricts = subdistrictService.findAll();
+			List<District> districts = districtService.findAll();
+			List<Province> provinces = provinceService.findAll();
+			
+			for(int i = 0; i < provinces.size(); i++) {
+				for(int j = 0; j < districts.size(); j++) {
+					for(int k = 0; k < subdistricts.size();k++) {
+						for(int l = 0; l < stores.size();l++) {
+							Subdistrict subdis = stores.get(l).getSubdistrict();
+							District district = subdis.getDistrict();
+							Province province = district.getProvince();
+							if(province == provinces.get(i) && district == districts.get(j) && subdis == subdistricts.get(k)) {
+								StoreDTO dto = new StoreDTO();
+								dto.setStoreId(stores.get(l).getStoreId());
+								dto.setNumber(stores.get(l).getNumber());
+								dto.setRoad(stores.get(l).getRoad());
+								dto.setName(stores.get(l).getName());
+								dto.setSubdistrict(subdis.getName());
+								dto.setDistrict(district.getName());
+								dto.setProvince(province.getName());
+								dto.setOpenTime(stores.get(l).getOpenTime());
+								dto.setCloseTime(stores.get(l).getCloseTime());
+								dto.setPhoneNumber(stores.get(l).getPhoneNumber());
+								dto.setType(stores.get(l).getType());
+								dtos.add(dto);
+							}
+						}
+					}
+				}
+			}
+			
 			res.setMessage("find success");
-			res.setBody(stores);
+			res.setBody(dtos);
 			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<List<Store>>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<List<StoreDTO>>>(res, res.getHttpStatus());
 		}catch (Exception ex) {
 			res.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<List<Store>>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<List<StoreDTO>>>(res, res.getHttpStatus());
 		}
 	}
 	
