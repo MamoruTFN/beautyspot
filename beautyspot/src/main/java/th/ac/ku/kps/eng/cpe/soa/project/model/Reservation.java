@@ -1,9 +1,11 @@
 package th.ac.ku.kps.eng.cpe.soa.project.model;
-// Generated Apr 1, 2023, 2:32:11 PM by Hibernate Tools 5.6.3.Final
+// Generated Apr 5, 2023, 5:31:43 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,38 +16,37 @@ public class Reservation implements java.io.Serializable {
 
 	private Integer reservationId;
 	@JsonIgnore
+	private Customer customer;
+	@JsonIgnore
 	private Promotion promotion;
-	@JsonIgnore
 	private Store store;
-	@JsonIgnore
-	private User user;
 	private Date currentDate;
 	private Date reservationDate;
 	private String description;
 	private Integer otherGroupId;
 	@JsonIgnore
-	private List<Payment> payments = new ArrayList<Payment>();
+	private List<Payment> payments = new ArrayList<>();
 
 	public Reservation() {
 	}
 
-	public Reservation(Promotion promotion, Store store, User user, Date currentDate, Date reservationDate,
+	public Reservation(Customer customer, Promotion promotion, Store store, Date currentDate, Date reservationDate,
 			String description) {
+		this.customer = customer;
 		this.promotion = promotion;
 		this.store = store;
-		this.user = user;
 		this.currentDate = currentDate;
 		this.reservationDate = reservationDate;
 		this.description = description;
 	}
 
-	public Reservation(Integer reservationId, Promotion promotion, Store store, User user, Date currentDate,
+	public Reservation(Integer reservationId, Customer customer, Promotion promotion, Store store, Date currentDate,
 			Date reservationDate, String description, Integer otherGroupId, List<Payment> payments) {
 		super();
 		this.reservationId = reservationId;
+		this.customer = customer;
 		this.promotion = promotion;
 		this.store = store;
-		this.user = user;
 		this.currentDate = currentDate;
 		this.reservationDate = reservationDate;
 		this.description = description;
@@ -59,6 +60,14 @@ public class Reservation implements java.io.Serializable {
 
 	public void setReservationId(Integer reservationId) {
 		this.reservationId = reservationId;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Promotion getPromotion() {
@@ -75,14 +84,6 @@ public class Reservation implements java.io.Serializable {
 
 	public void setStore(Store store) {
 		this.store = store;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public Date getCurrentDate() {
@@ -125,5 +126,6 @@ public class Reservation implements java.io.Serializable {
 		this.payments = payments;
 	}
 
+	
 
 }

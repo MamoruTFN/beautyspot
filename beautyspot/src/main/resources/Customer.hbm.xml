@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Apr 5, 2023, 5:31:43 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="beautyspot" name="th.ac.ku.kps.eng.cpe.soa.project.model.Customer" optimistic-lock="none" table="customer">
+        <id name="customerId" type="java.lang.Integer">
+            <column name="customerId"/>
+            <generator class="identity"/>
+        </id>
+        <property name="firstName" type="string">
+            <column length="50" name="firstName" not-null="true"/>
+        </property>
+        <property name="lastName" type="string">
+            <column length="50" name="lastName" not-null="true"/>
+        </property>
+        <property name="tel" type="string">
+            <column length="10" name="tel" not-null="true"/>
+        </property>
+        <bag fetch="select" inverse="true" lazy="true" name="payments" table="payment">
+            <key>
+                <column name="customerId" not-null="true"/>
+            </key>
+            <one-to-many class="th.ac.ku.kps.eng.cpe.soa.project.model.Payment"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="reservations" table="reservation">
+            <key>
+                <column name="customerID" not-null="true"/>
+            </key>
+            <one-to-many class="th.ac.ku.kps.eng.cpe.soa.project.model.Reservation"/>
+        </bag>
+    </class>
+</hibernate-mapping>

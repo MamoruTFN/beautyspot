@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Apr 5, 2023, 1:27:16 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 5, 2023, 6:40:37 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class catalog="beautyspot" name="model.Store" optimistic-lock="none" table="store">
         <id name="storeId" type="java.lang.Integer">
@@ -9,9 +9,12 @@
         <many-to-one class="model.Subdistrict" fetch="select" name="subdistrict">
             <column name="subdistrictID" not-null="true"/>
         </many-to-one>
-        <many-to-one class="model.User" fetch="select" name="user">
-            <column name="UserID" unique="true"/>
-        </many-to-one>
+        <property name="number" type="string">
+            <column length="10" name="number" not-null="true"/>
+        </property>
+        <property name="road" type="string">
+            <column length="250" name="road" not-null="true"/>
+        </property>
         <property name="name" type="string">
             <column name="name" not-null="true"/>
         </property>
@@ -32,6 +35,12 @@
                 <column name="StoreID" not-null="true"/>
             </key>
             <one-to-many class="model.Reservation"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="employees" table="employee">
+            <key>
+                <column name="storeId" not-null="true"/>
+            </key>
+            <one-to-many class="model.Employee"/>
         </set>
     </class>
 </hibernate-mapping>

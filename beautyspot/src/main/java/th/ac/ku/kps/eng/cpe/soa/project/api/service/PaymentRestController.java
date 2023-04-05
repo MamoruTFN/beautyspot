@@ -22,14 +22,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import th.ac.ku.kps.eng.cpe.soa.project.api.util.Response;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Customer;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Payment;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Promotion;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Reservation;
-import th.ac.ku.kps.eng.cpe.soa.project.model.User;
 import th.ac.ku.kps.eng.cpe.soa.project.service.PaymentService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.PromotionService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.ReservationService;
-import th.ac.ku.kps.eng.cpe.soa.project.service.UserService;
+import th.ac.ku.kps.eng.cpe.soa.project.service.CustomerService;
+import th.ac.ku.kps.eng.cpe.soa.project.service.EmployeeService;
 
 @RestController
 @RequestMapping("/payments")
@@ -42,7 +43,8 @@ public class PaymentRestController {
 	@Autowired
 	private ReservationService reservationService;
 	@Autowired
-	private UserService userService;
+	private CustomerService customerService;
+
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -116,16 +118,16 @@ public class PaymentRestController {
 
 	@PostMapping("/")
 	public ResponseEntity<Response<Payment>> createPayment(@RequestParam("promotionId") int promotionId,
-			@RequestParam("reservationId") int reservationId, @RequestParam("userId") int userId,
+			@RequestParam("reservationId") int reservationId, @RequestParam("customer") int customerId,
 			@Valid @RequestBody Payment payment) {
 		Response<Payment> res = new Response<>();
 		try {
 			Promotion promotion = promotionService.findById(promotionId);
 			Reservation reservation = reservationService.findById(reservationId);
-			User user = userService.findById(userId);
+			Customer customer = customerService.findById(customerId);
 			payment.setPromotion(promotion);
 			payment.setReservation(reservation);
-			payment.setUser(user);
+			payment.setCustomer(customer);
 			paymentService.save(payment);
 			res.setMessage("Create Success");
 			res.setBody(payment);

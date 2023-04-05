@@ -1,5 +1,5 @@
 package model;
-// Generated Apr 5, 2023, 1:27:16 PM by Hibernate Tools 5.6.3.Final
+// Generated Apr 5, 2023, 6:40:37 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -11,9 +11,9 @@ import java.util.Set;
 public class Reservation implements java.io.Serializable {
 
 	private Integer reservationId;
+	private Customer customer;
 	private Promotion promotion;
 	private Store store;
-	private User user;
 	private Date currentDate;
 	private Date reservationDate;
 	private String description;
@@ -23,21 +23,21 @@ public class Reservation implements java.io.Serializable {
 	public Reservation() {
 	}
 
-	public Reservation(Promotion promotion, Store store, User user, Date currentDate, Date reservationDate,
+	public Reservation(Customer customer, Promotion promotion, Store store, Date currentDate, Date reservationDate,
 			String description) {
+		this.customer = customer;
 		this.promotion = promotion;
 		this.store = store;
-		this.user = user;
 		this.currentDate = currentDate;
 		this.reservationDate = reservationDate;
 		this.description = description;
 	}
 
-	public Reservation(Promotion promotion, Store store, User user, Date currentDate, Date reservationDate,
+	public Reservation(Customer customer, Promotion promotion, Store store, Date currentDate, Date reservationDate,
 			String description, Integer otherGroupId, Set payments) {
+		this.customer = customer;
 		this.promotion = promotion;
 		this.store = store;
-		this.user = user;
 		this.currentDate = currentDate;
 		this.reservationDate = reservationDate;
 		this.description = description;
@@ -51,6 +51,14 @@ public class Reservation implements java.io.Serializable {
 
 	public void setReservationId(Integer reservationId) {
 		this.reservationId = reservationId;
+	}
+
+	public Customer getCustomer() {
+		return this.customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Promotion getPromotion() {
@@ -67,14 +75,6 @@ public class Reservation implements java.io.Serializable {
 
 	public void setStore(Store store) {
 		this.store = store;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public Date getCurrentDate() {

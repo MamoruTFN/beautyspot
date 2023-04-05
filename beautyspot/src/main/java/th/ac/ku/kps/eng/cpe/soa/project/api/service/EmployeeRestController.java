@@ -16,39 +16,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import th.ac.ku.kps.eng.cpe.soa.project.api.util.Response;
-import th.ac.ku.kps.eng.cpe.soa.project.model.Customer;
-import th.ac.ku.kps.eng.cpe.soa.project.model.Promotion;
-import th.ac.ku.kps.eng.cpe.soa.project.model.Reservation;
-import th.ac.ku.kps.eng.cpe.soa.project.model.Store;
-import th.ac.ku.kps.eng.cpe.soa.project.service.PromotionService;
-import th.ac.ku.kps.eng.cpe.soa.project.service.ReservationService;
-import th.ac.ku.kps.eng.cpe.soa.project.service.StoreService;
-import th.ac.ku.kps.eng.cpe.soa.project.service.CustomerService;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Employee;
 import th.ac.ku.kps.eng.cpe.soa.project.service.EmployeeService;
 
 @CrossOrigin("http://localhost:8081/")
 @RestController
-@RequestMapping("/reservations")
-public class ReservationRestController {
+@RequestMapping("/employees")
+public class EmployeeRestController {
 
 	@Autowired
-	private ReservationService reservationService;
-
-	@Autowired
-	private PromotionService promotionService;
-
-	@Autowired
-	private StoreService storeService;
-
-	@Autowired
-	private CustomerService customerService;
+	private EmployeeService employeeService;
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -70,60 +54,52 @@ public class ReservationRestController {
 	}
 
 	@PostMapping("/")
-	public ResponseEntity<Response<Reservation>> createReservation(@Valid @RequestBody Reservation reservation,
-			@RequestParam("customerId") int customerId, @RequestParam("storeId") int storeId,
-			@RequestParam("promotionId") int promotionId) {
-		Response<Reservation> res = new Response<>();
+	public ResponseEntity<Response<Employee>> createReservation(@Valid @RequestBody Employee employee) {
+		Response<Employee> res = new Response<>();
 		try {
-			Customer customer = customerService.findById(customerId);
-			Store store = storeService.findById(storeId);
-			Promotion promotion = promotionService.findById(promotionId);
-			reservation.setCustomer(customer);
-			reservation.setStore(store);
-			reservation.setPromotion(promotion);
-			reservationService.save(reservation);
+			employeeService.save(employee);
 			res.setMessage("Create Success");
-			res.setBody(reservation);
+			res.setBody(employee);
 			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<Employee>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<Employee>>(res, res.getHttpStatus());
 		}
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Response<Reservation>> findReservationById(@PathVariable("id") int id) {
-		Response<Reservation> res = new Response<>();
+	public ResponseEntity<Response<Employee>> findReservationById(@PathVariable("id") int id) {
+		Response<Employee> res = new Response<>();
 		try {
-			Reservation reservation = reservationService.findById(id);
-			res.setBody(reservation);
+			Employee employee = employeeService.findById(id);
+			res.setBody(employee);
 			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<Employee>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<Employee>>(res, res.getHttpStatus());
 		}
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Response<Reservation>> updateReservationById(@PathVariable("id") int id,
-			@RequestBody Reservation reservation) {
-		Response<Reservation> res = new Response<>();
+	public ResponseEntity<Response<Employee>> updateReservationById(@PathVariable("id") int id,
+			@RequestBody Employee employee) {
+		Response<Employee> res = new Response<>();
 		try {
-			Reservation r = reservationService.findById(id);
-			// r.clone(reservation);
-			reservationService.save(r);
+			Employee _employee = employeeService.findById(id);
+			_employee.clone(employee);
+			employeeService.save(employee);
 			res.setMessage("update " + id + "success");
-			res.setBody(r);
+			res.setBody(employee);
 			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<Employee>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<Employee>>(res, res.getHttpStatus());
 		}
 	}
 
@@ -131,8 +107,8 @@ public class ReservationRestController {
 	public ResponseEntity<Response<String>> deleteReseevationById(@PathVariable("id") int id) {
 		Response<String> res = new Response<String>();
 		try {
-			Reservation reservation = reservationService.findById(id);
-			reservationService.delete(reservation);
+			Employee user = employeeService.findById(id);
+			employeeService.delete(user);
 			res.setMessage("delete" + id + "success");
 			res.setBody("");
 			res.setHttpStatus(HttpStatus.OK);
@@ -143,4 +119,5 @@ public class ReservationRestController {
 			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
 		}
 	}
+
 }

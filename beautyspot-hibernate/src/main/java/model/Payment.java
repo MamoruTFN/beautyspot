@@ -1,5 +1,5 @@
 package model;
-// Generated Apr 5, 2023, 1:27:16 PM by Hibernate Tools 5.6.3.Final
+// Generated Apr 5, 2023, 6:40:37 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.Date;
 
@@ -9,9 +9,9 @@ import java.util.Date;
 public class Payment implements java.io.Serializable {
 
 	private Integer paymentId;
+	private Customer customer;
 	private Promotion promotion;
 	private Reservation reservation;
-	private User user;
 	private String type;
 	private double price;
 	private Date currentDate;
@@ -20,11 +20,11 @@ public class Payment implements java.io.Serializable {
 	public Payment() {
 	}
 
-	public Payment(Promotion promotion, Reservation reservation, User user, String type, double price, Date currentDate,
-			String description) {
+	public Payment(Customer customer, Promotion promotion, Reservation reservation, String type, double price,
+			Date currentDate, String description) {
+		this.customer = customer;
 		this.promotion = promotion;
 		this.reservation = reservation;
-		this.user = user;
 		this.type = type;
 		this.price = price;
 		this.currentDate = currentDate;
@@ -37,6 +37,14 @@ public class Payment implements java.io.Serializable {
 
 	public void setPaymentId(Integer paymentId) {
 		this.paymentId = paymentId;
+	}
+
+	public Customer getCustomer() {
+		return this.customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Promotion getPromotion() {
@@ -53,14 +61,6 @@ public class Payment implements java.io.Serializable {
 
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public String getType() {

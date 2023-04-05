@@ -1,10 +1,11 @@
 package th.ac.ku.kps.eng.cpe.soa.project.model;
-// Generated Apr 1, 2023, 2:32:11 PM by Hibernate Tools 5.6.3.Final
+// Generated Apr 5, 2023, 6:40:37 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,6 +17,8 @@ public class Store implements java.io.Serializable {
 	private Integer storeId;
 	@JsonIgnore
 	private Subdistrict subdistrict;
+	private String number;
+	private String road;
 	private String name;
 	private Date openTime;
 	private Date closeTime;
@@ -23,12 +26,17 @@ public class Store implements java.io.Serializable {
 	private String type;
 	@JsonIgnore
 	private List<Reservation> reservations = new ArrayList<Reservation>();
+	@JsonIgnore
+	private List<Employee> employees = new ArrayList<Employee>();
 
 	public Store() {
 	}
 
-	public Store(Subdistrict subdistrict, String name, Date openTime, Date closeTime, String phoneNumber, String type) {
+	public Store(Subdistrict subdistrict, String number, String road, String name, Date openTime, Date closeTime,
+			String phoneNumber, String type) {
 		this.subdistrict = subdistrict;
+		this.number = number;
+		this.road = road;
 		this.name = name;
 		this.openTime = openTime;
 		this.closeTime = closeTime;
@@ -36,7 +44,25 @@ public class Store implements java.io.Serializable {
 		this.type = type;
 	}
 	
-	public void clone(Store other) {
+	public Store(Integer storeId, Subdistrict subdistrict, String number, String road, String name, Date openTime,
+			Date closeTime, String phoneNumber, String type, List<Reservation> reservations, List<Employee> employees) {
+		super();
+		this.storeId = storeId;
+		this.subdistrict = subdistrict;
+		this.number = number;
+		this.road = road;
+		this.name = name;
+		this.openTime = openTime;
+		this.closeTime = closeTime;
+		this.phoneNumber = phoneNumber;
+		this.type = type;
+		this.reservations = reservations;
+		this.employees = employees;
+	}
+
+	public void clone (Store other) {
+		this.number = other.number;
+		this.road = other.road;
 		this.name = other.name;
 		this.openTime = other.openTime;
 		this.closeTime = other.closeTime;
@@ -58,6 +84,22 @@ public class Store implements java.io.Serializable {
 
 	public void setSubdistrict(Subdistrict subdistrict) {
 		this.subdistrict = subdistrict;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getRoad() {
+		return road;
+	}
+
+	public void setRoad(String road) {
+		this.road = road;
 	}
 
 	public String getName() {
@@ -107,5 +149,15 @@ public class Store implements java.io.Serializable {
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
+
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
+
+	
 
 }

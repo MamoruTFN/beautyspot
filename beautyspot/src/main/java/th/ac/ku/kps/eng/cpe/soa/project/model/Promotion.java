@@ -1,10 +1,10 @@
 package th.ac.ku.kps.eng.cpe.soa.project.model;
-// Generated Apr 1, 2023, 2:32:11 PM by Hibernate Tools 5.6.3.Final
+// Generated Apr 5, 2023, 5:31:43 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
-
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,9 +17,9 @@ public class Promotion implements java.io.Serializable {
 	private String name;
 	private double percentDiscount;
 	@JsonIgnore
-	private List<Reservation> reservations = new ArrayList<Reservation>();
+	private List<Reservation> reservations = new ArrayList<>();
 	@JsonIgnore
-	private List<Payment> payments = new ArrayList<Payment>();
+	private List<Payment> payments = new ArrayList<>();
 
 	public Promotion() {
 	}
@@ -83,5 +83,7 @@ public class Promotion implements java.io.Serializable {
 	public void setPayments(List<Payment> payments) {
 		this.payments = payments;
 	}
+
+	
 
 }

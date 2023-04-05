@@ -1,9 +1,10 @@
 package th.ac.ku.kps.eng.cpe.soa.project.model;
-// Generated Apr 1, 2023, 2:32:11 PM by Hibernate Tools 5.6.3.Final
+// Generated Apr 5, 2023, 5:31:43 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -12,12 +13,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class District implements java.io.Serializable {
 
-	private Integer districtId;
+	private Integer districtId;	
 	@JsonIgnore
 	private Province province;
 	private String name;
 	@JsonIgnore
-	private List<Subdistrict> subdistricts = new ArrayList<Subdistrict>();
+	private List<Subdistrict> subdistricts = new ArrayList<>();
 
 	public District() {
 	}

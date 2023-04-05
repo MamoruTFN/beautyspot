@@ -1,5 +1,5 @@
 package model;
-// Generated Apr 5, 2023, 1:27:16 PM by Hibernate Tools 5.6.3.Final
+// Generated Apr 5, 2023, 6:40:37 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -12,19 +12,24 @@ public class Store implements java.io.Serializable {
 
 	private Integer storeId;
 	private Subdistrict subdistrict;
-	private User user;
+	private String number;
+	private String road;
 	private String name;
 	private Date openTime;
 	private Date closeTime;
 	private String phoneNumber;
 	private String type;
 	private Set reservations = new HashSet(0);
+	private Set employees = new HashSet(0);
 
 	public Store() {
 	}
 
-	public Store(Subdistrict subdistrict, String name, Date openTime, Date closeTime, String phoneNumber, String type) {
+	public Store(Subdistrict subdistrict, String number, String road, String name, Date openTime, Date closeTime,
+			String phoneNumber, String type) {
 		this.subdistrict = subdistrict;
+		this.number = number;
+		this.road = road;
 		this.name = name;
 		this.openTime = openTime;
 		this.closeTime = closeTime;
@@ -32,16 +37,18 @@ public class Store implements java.io.Serializable {
 		this.type = type;
 	}
 
-	public Store(Subdistrict subdistrict, User user, String name, Date openTime, Date closeTime, String phoneNumber,
-			String type, Set reservations) {
+	public Store(Subdistrict subdistrict, String number, String road, String name, Date openTime, Date closeTime,
+			String phoneNumber, String type, Set reservations, Set employees) {
 		this.subdistrict = subdistrict;
-		this.user = user;
+		this.number = number;
+		this.road = road;
 		this.name = name;
 		this.openTime = openTime;
 		this.closeTime = closeTime;
 		this.phoneNumber = phoneNumber;
 		this.type = type;
 		this.reservations = reservations;
+		this.employees = employees;
 	}
 
 	public Integer getStoreId() {
@@ -60,12 +67,20 @@ public class Store implements java.io.Serializable {
 		this.subdistrict = subdistrict;
 	}
 
-	public User getUser() {
-		return this.user;
+	public String getNumber() {
+		return this.number;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getRoad() {
+		return this.road;
+	}
+
+	public void setRoad(String road) {
+		this.road = road;
 	}
 
 	public String getName() {
@@ -114,6 +129,14 @@ public class Store implements java.io.Serializable {
 
 	public void setReservations(Set reservations) {
 		this.reservations = reservations;
+	}
+
+	public Set getEmployees() {
+		return this.employees;
+	}
+
+	public void setEmployees(Set employees) {
+		this.employees = employees;
 	}
 
 }

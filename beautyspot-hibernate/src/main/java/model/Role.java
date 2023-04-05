@@ -1,5 +1,5 @@
 package model;
-// Generated Apr 5, 2023, 1:27:16 PM by Hibernate Tools 5.6.3.Final
+// Generated Apr 5, 2023, 6:40:37 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +11,7 @@ public class Role implements java.io.Serializable {
 
 	private Integer roleId;
 	private String name;
-	private Set users = new HashSet(0);
+	private Set employees = new HashSet(0);
 
 	public Role() {
 	}
@@ -20,9 +20,9 @@ public class Role implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public Role(String name, Set users) {
+	public Role(String name, Set employees) {
 		this.name = name;
-		this.users = users;
+		this.employees = employees;
 	}
 
 	public Integer getRoleId() {
@@ -41,12 +41,12 @@ public class Role implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public Set getUsers() {
-		return this.users;
+	public Set getEmployees() {
+		return this.employees;
 	}
 
-	public void setUsers(Set users) {
-		this.users = users;
+	public void setEmployees(Set employees) {
+		this.employees = employees;
 	}
 
 }
