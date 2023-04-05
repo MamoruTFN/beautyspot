@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2023 at 12:28 PM
+-- Generation Time: Apr 05, 2023 at 08:15 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -20,8 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `beautyspot`
 --
-CREATE DATABASE IF NOT EXISTS `beautyspot` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `beautyspot`;
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +46,13 @@ CREATE TABLE `district` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `district`
+--
+
+INSERT INTO `district` (`DistrictID`, `ProvinceID`, `name`) VALUES
+(1, 1, 'peace2');
+
 -- --------------------------------------------------------
 
 --
@@ -56,21 +62,11 @@ CREATE TABLE `district` (
 CREATE TABLE `employee` (
   `employeeId` int(11) NOT NULL,
   `RoleID` int(11) NOT NULL,
+  `storeId` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `phonenumber` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `employee`
---
-
-INSERT INTO `employee` (`employeeId`, `RoleID`, `name`, `email`, `phonenumber`) VALUES
-(1, 2, 'user1', 'user1@hotmail.com', '0896345911'),
-(2, 2, 'user2', 'user2@hotmail.com', '0896345911'),
-(3, 3, 'admin', 'admin@hotmail.com', '0896345911'),
-(4, 1, 'staff1', 'staff1@hotmail.com', '0896345911'),
-(5, 1, 'staff2', 'staff2@hotmail.com', '0896345911');
 
 -- --------------------------------------------------------
 
@@ -112,6 +108,13 @@ CREATE TABLE `province` (
   `ProvinceID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `province`
+--
+
+INSERT INTO `province` (`name`, `ProvinceID`) VALUES
+('peace', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -124,7 +127,7 @@ CREATE TABLE `reservation` (
   `StoreID` int(11) NOT NULL,
   `customerID` int(11) NOT NULL,
   `currentDate` date NOT NULL,
-  `reservationDate` date NOT NULL,
+  `reservationDate` datetime NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `otherGroupId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -158,13 +161,22 @@ INSERT INTO `role` (`RoleID`, `name`) VALUES
 CREATE TABLE `store` (
   `StoreID` int(11) NOT NULL,
   `subdistrictID` int(11) NOT NULL,
-  `UserID` int(11) DEFAULT NULL,
+  `number` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `road` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `openTime` date NOT NULL,
-  `closeTime` date NOT NULL,
+  `openTime` time NOT NULL DEFAULT '08:00:00',
+  `closeTime` time NOT NULL DEFAULT '16:00:00',
   `phoneNumber` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `type` enum('Nail','Hair','Spa') COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `store`
+--
+
+INSERT INTO `store` (`StoreID`, `subdistrictID`, `number`, `road`, `name`, `openTime`, `closeTime`, `phoneNumber`, `type`) VALUES
+(1, 1, '1', '1', '1', '08:00:00', '16:00:00', '0896345911', 'Nail'),
+(2, 1, '2', '2', '2', '08:00:00', '16:00:00', '0896345911', 'Hair');
 
 -- --------------------------------------------------------
 
@@ -177,6 +189,13 @@ CREATE TABLE `subdistrict` (
   `DistrictID` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `subdistrict`
+--
+
+INSERT INTO `subdistrict` (`subdistrictID`, `DistrictID`, `name`) VALUES
+(1, 1, 'peace3');
 
 --
 -- Indexes for dumped tables
@@ -200,7 +219,8 @@ ALTER TABLE `district`
 --
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`employeeId`),
-  ADD KEY `TC_User126` (`RoleID`);
+  ADD KEY `TC_User126` (`RoleID`),
+  ADD KEY `storeId` (`storeId`);
 
 --
 -- Indexes for table `payment`
@@ -245,9 +265,7 @@ ALTER TABLE `role`
 --
 ALTER TABLE `store`
   ADD PRIMARY KEY (`StoreID`),
-  ADD UNIQUE KEY `TC_Store112` (`UserID`),
-  ADD KEY `TC_Store124` (`subdistrictID`),
-  ADD KEY `TC_Store123` (`UserID`);
+  ADD KEY `TC_Store124` (`subdistrictID`);
 
 --
 -- Indexes for table `subdistrict`
@@ -270,7 +288,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `district`
 --
 ALTER TABLE `district`
-  MODIFY `DistrictID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `DistrictID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `employee`
@@ -294,7 +312,7 @@ ALTER TABLE `promotion`
 -- AUTO_INCREMENT for table `province`
 --
 ALTER TABLE `province`
-  MODIFY `ProvinceID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ProvinceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `reservation`
@@ -312,13 +330,13 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `store`
 --
 ALTER TABLE `store`
-  MODIFY `StoreID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `StoreID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `subdistrict`
 --
 ALTER TABLE `subdistrict`
-  MODIFY `subdistrictID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `subdistrictID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -334,7 +352,8 @@ ALTER TABLE `district`
 -- Constraints for table `employee`
 --
 ALTER TABLE `employee`
-  ADD CONSTRAINT `FK_User52` FOREIGN KEY (`RoleID`) REFERENCES `role` (`RoleID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_User52` FOREIGN KEY (`RoleID`) REFERENCES `role` (`RoleID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`storeId`) REFERENCES `store` (`StoreID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `payment`
@@ -356,8 +375,7 @@ ALTER TABLE `reservation`
 -- Constraints for table `store`
 --
 ALTER TABLE `store`
-  ADD CONSTRAINT `FK_Store55` FOREIGN KEY (`subdistrictID`) REFERENCES `subdistrict` (`subdistrictID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_Store59` FOREIGN KEY (`UserID`) REFERENCES `employee` (`employeeId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_Store55` FOREIGN KEY (`subdistrictID`) REFERENCES `subdistrict` (`subdistrictID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `subdistrict`
