@@ -41,6 +41,41 @@
             padding-bottom: 10px;
           "
         >
+        <div>
+        <h2>Customer View</h2>
+      <table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">number</th>
+      <th scope="col">road</th>
+      <th scope="col">name</th>
+      <th scope="col">openTime</th>
+      <th scope="col">closeTime</th>
+      <th scope="col">phoneNumber</th>
+      <th scope="col">type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="store in result" v-bind:key="store.storeId">
+          
+          <td>{{ store.storeId }}</td>
+          <td>{{ store.number }}</td>
+          <td>{{ store.road }}</td>
+          <td>{{ store.name }}</td>
+          <td>{{ store.openTime }}</td>
+          <td>{{ store.closeTime }}</td>
+          <td>{{ store.phoneNumber }}</td>
+          <td>{{ store.type }}</td>
+          <td>
+            <button type="button" class="btn btn-warning" @click="edit(customer)">Edit</button>
+            <button type="button" class="btn btn-danger"  @click="remove(customer)">Delete</button>
+          </td>
+        </tr>
+    
+  </tbody>
+</table>
+</div>
           <div class="col-lg-7 mb-lg-0 mb-4">
             <div class="card">
               <div class="card-body p-3">
@@ -221,12 +256,15 @@ import US from "../assets/img/icons/flags/US.png";
 import DE from "../assets/img/icons/flags/DE.png";
 import GB from "../assets/img/icons/flags/GB.png";
 import BR from "../assets/img/icons/flags/BR.png";
+import Vue from 'vue';
+import axios from 'axios';
 import {
   faHandPointer,
   faUsers,
   faCreditCard,
   faScrewdriverWrench,
 } from "../../node_modules/@fortawesome/free-solid-svg-icons";
+Vue.use(axios)
 export default {
   name: "HelloWorld",
   props: {
@@ -269,8 +307,38 @@ export default {
           flag: BR,
         },
       },
+      store:{
+        storeId: '',
+        number: '',
+        road: '',
+        name: '',
+        openTime: '',
+        closeTime: '',
+        phoneNumber: '',
+        type: ''
+      }
     };
   },
+  created() {
+        this.CustomereLoad();
+    },
+    mounted() {
+          console.log("mounted() called.......");
+        
+      },
+      methods: {
+        CustomereLoad()
+           {
+                 var page = "http://localhost:8080//stores/";
+                 axios.get(page)
+                  .then(
+                      ({data})=>{
+                        console.log(data);
+                        this.result = data;
+                      }
+                  );
+           }
+          },
   components: {},
 };
 </script>

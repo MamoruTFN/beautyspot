@@ -1,5 +1,5 @@
 package th.ac.ku.kps.eng.cpe.soa.project.model;
-// Generated Apr 5, 2023, 6:40:37 PM by Hibernate Tools 5.6.3.Final
+// Generated Apr 6, 2023, 12:03:22 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,7 +43,7 @@ public class Store implements java.io.Serializable {
 		this.phoneNumber = phoneNumber;
 		this.type = type;
 	}
-	
+
 	public Store(Integer storeId, Subdistrict subdistrict, String number, String road, String name, Date openTime,
 			Date closeTime, String phoneNumber, String type, List<Reservation> reservations, List<Employee> employees) {
 		super();
@@ -59,8 +59,8 @@ public class Store implements java.io.Serializable {
 		this.reservations = reservations;
 		this.employees = employees;
 	}
-
-	public void clone (Store other) {
+	
+	public void clone(Store other) {
 		this.number = other.number;
 		this.road = other.road;
 		this.name = other.name;
