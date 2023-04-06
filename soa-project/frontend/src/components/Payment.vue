@@ -34,12 +34,12 @@
         <div
           class="row"
           style="
-                      display: flex;
-                      flex-direction: column;
-                      justify-content: center;
-                      align-items: center;
-                      padding-bottom: 10px;
-                    "
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        padding-bottom: 10px;
+                      "
         >
           <div>
             <h2>Customer View</h2>
@@ -95,7 +95,7 @@ import Vue from 'vue'
 import axios from 'axios'
 Vue.use(axios)
 export default {
-  name: 'Reservation',
+  name: 'Payment',
   data() {
     return {
       result: {},
@@ -111,12 +111,22 @@ export default {
       reservationid: ''
     }
   },
-  created() {},
+  created() {
+    this.ReservationLoad()
+  },
   mounted() {
     console.log(this.$route.params.storeid)
     console.log(this.$route.params.promotionid)
   },
   methods: {
+    ReservationLoad() {
+      var page = 'http://localhost:8080/reservations/max'
+      axios.get(page).then(({ data }) => {
+        console.log(data)
+        this.reservationid = data.body.reservationId
+        console.log(this.reservationid)
+      })
+    },
     saveData() {
       var page =
         'http://localhost:8080/reservations/?storeId=' +
@@ -131,7 +141,7 @@ export default {
         this.reservationDTO.reservationDate = ''
         this.reservationDTO.description = ''
       })
-      this.$router.push('/payment')
+      this.$router.push('/payment/' + (this.reservationid + 1))
     }
   }
 }

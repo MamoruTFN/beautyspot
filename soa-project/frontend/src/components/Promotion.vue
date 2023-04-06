@@ -53,7 +53,12 @@
                 </p>
                 <a
                   class="text-white font-weight-bold ps-1 mb-0 icon-move-left mt-auto"
-                  href="/reservation"
+                  :href="
+                    '/reservation/' +
+                      store.storeId +
+                      '/' +
+                      promotion.promotionId
+                  "
                 >
                   Read more
                   <i
@@ -83,18 +88,22 @@ export default {
         promotionId: '',
         name: '',
         percentDiscount: ''
+      },
+      store: {
+        storeId: ''
       }
     }
   },
   created() {
-    this.CustomereLoad()
+    this.PromotionLoad()
   },
   mounted() {
-    console.log('mounted() called.......')
+    this.store.storeId = this.$route.params.storeId
+    console.log(this.store.storeId)
   },
   methods: {
-    CustomereLoad() {
-      var page = 'http://localhost:8080/stores/'
+    PromotionLoad() {
+      var page = 'http://localhost:8080/promotions/'
       axios.get(page).then(({ data }) => {
         console.log(data)
         this.result = data.body

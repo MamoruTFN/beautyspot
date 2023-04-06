@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Home from '@/components/Home'
 import StoreSelect from '@/components/StoreSelect'
 import Promotion from '@/components/Promotion'
 import Reservation from '@/components/Reservation'
+import Payment from '@/components/Payment'
 
 Vue.use(Router)
 
@@ -16,19 +18,24 @@ export default new Router({
       component: Home
     },
     {
+      path: '/reservation/:storeid/:promotionid',
+      name: 'Reservation',
+      component: Reservation
+    },
+    {
       path: '/storeselect',
       name: 'StoreSelect',
       component: StoreSelect
     },
     {
-      path: '/promotion',
+      path: '/promotion/:storeId',
       name: 'Promotion',
       component: Promotion
     },
     {
-      path: '/reservation',
-      name: 'Reservation',
-      component: Reservation
+      path: '/payment',
+      name: 'Payment',
+      component: Payment
     }
   ]
 })

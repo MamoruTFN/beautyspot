@@ -111,7 +111,7 @@
                       </td>
                       <td class="align-middle">
                         <a
-                          href="/promotion"
+                          :href="'/promotion/' + store.storeId"
                           class="text-secondary font-weight-bold text-xs"
                           data-toggle="tooltip"
                           data-original-title="Edit user"
