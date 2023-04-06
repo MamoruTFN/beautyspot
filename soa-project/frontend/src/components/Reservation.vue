@@ -63,7 +63,7 @@
               placeholder="tel"
             />
             <input
-              type="date"
+              type="hidden"
               v-model="reservationDTO.currentDate"
               class="form-control"
               placeholder="currentDate"
@@ -74,13 +74,25 @@
               class="form-control"
               placeholder="reservationDate"
             />
-
+            <select v-model="storePrice.storePriceId" class="form-control">
+              <option
+                v-for="storePrice in result"
+                v-bind:key="storePrice.storePriceId"
+                v-bind:value="storePrice.storePriceId"
+                >{{ storePrice.name }}</option
+              >
+            </select>
             <input
               type="text"
               v-model="reservationDTO.description"
               class="form-control"
               placeholder="description"
             />
+            <router-link
+              :to="'/promotion/' + this.$route.params.storeid"
+              class="btn btn-secondary"
+              >กลับ</router-link
+            >
             <button type="submit" class="btn btn-danger">
               สร้าง
             </button>
@@ -99,7 +111,7 @@ export default {
   data() {
     return {
       result: {},
-
+      selected: '',
       reservationDTO: {
         firstName: '',
         lastName: '',
@@ -108,19 +120,42 @@ export default {
         reservationDate: '',
         description: ''
       },
-      reservationid: ''
+      reservationid: '',
+      storePrice: {
+        storePriceId: '',
+        price: '',
+        name: ''
+      }
     }
   },
-  created() {},
+  created() {
+    this.ReservationLoad()
+    this.StorepriceLoad()
+  },
   mounted() {
     console.log(this.$route.params.storeid)
     console.log(this.$route.params.promotionid)
   },
   methods: {
+    ReservationLoad() {
+      var page = 'http://localhost:8080/reservations/max'
+      axios.get(page).then(({ data }) => {
+        console.log(data)
+        this.reservationid = data.body.reservationId
+        console.log(this.reservationid)
+      })
+    },
+    StorepriceLoad() {
+      var page =
+        'http://localhost:8080/storeprice/price/' + this.$route.params.storeid
+      axios.get(page).then(({ data }) => {
+        this.result = data.body
+      })
+    },
     saveData() {
       var page =
-        'http://localhost:8080/reservations/?storeId=' +
-        this.$route.params.storeid +
+        'http://localhost:8080/reservations/?storepriceId=' +
+        this.storePrice.storePriceId +
         '&promotionId=' +
         this.$route.params.promotionid
       axios.post(page, this.reservationDTO).then(({ data }) => {
@@ -131,7 +166,6 @@ export default {
         this.reservationDTO.reservationDate = ''
         this.reservationDTO.description = ''
       })
-      this.$router.push('/payment')
     }
   }
 }

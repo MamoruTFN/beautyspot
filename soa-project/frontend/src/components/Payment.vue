@@ -30,61 +30,61 @@
           </div>
         </div>
       </nav>
-      <div style="width: 100%; height: auto; margin-top: 10px">
-        <div
-          class="row"
-          style="
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-                        align-items: center;
-                        padding-bottom: 10px;
-                      "
-        >
-          <div>
-            <h2>Customer View</h2>
+      <div class="col-lg-12">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-7"><br /></div>
+        </div>
+      </div>
+      <div class="row align-items-center justify-content-center">
+        <div class="col-md-7">
+          <div class="card">
+            <div class="card-header pb-0 px-3">
+              <h6 class="mb-0">Billing Information</h6>
+            </div>
+            <div class="card-body pt-4 p-3">
+              <ul class="list-group">
+                <li
+                  class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg"
+                >
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-3 text-sm">Oliver Liam</h6>
+                    <span class="mb-2 text-xs">
+                      Company Name:
+                      <span class="text-dark font-weight-bold ms-sm-2"
+                        >Viking Burrito</span
+                      ></span
+                    ><span class="mb-2 text-xs">
+                      Email Address:
+                      <span class="text-dark ms-sm-2 font-weight-bold"
+                        >oliver@burrito.com</span
+                      ></span
+                    ><span class="text-xs">
+                      VAT Number:
+                      <span class="text-dark ms-sm-2 font-weight-bold"
+                        >FRB1235476</span
+                      ></span
+                    >
+                  </div>
+                  <div class="ms-auto text-end">
+                    <a
+                      class="btn btn-link text-danger text-gradient px-3 mb-0"
+                      href="javascript:;"
+                      ><i class="far fa-trash-alt me-2" aria-hidden="true"></i
+                      >Delete </a
+                    ><a
+                      class="btn btn-link text-dark px-3 mb-0"
+                      href="javascript:;"
+                      ><i
+                        class="fas fa-pencil-alt text-dark me-2"
+                        aria-hidden="true"
+                      ></i
+                      >Edit
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
-          <form @submit.prevent="saveData">
-            <input
-              type="text"
-              v-model="reservationDTO.firstName"
-              class="form-control"
-              placeholder="firstName"
-            />
-            <input
-              type="text"
-              v-model="reservationDTO.lastName"
-              class="form-control"
-              placeholder="lastName"
-            /><input
-              type="text"
-              v-model="reservationDTO.tel"
-              class="form-control"
-              placeholder="tel"
-            />
-            <input
-              type="date"
-              v-model="reservationDTO.currentDate"
-              class="form-control"
-              placeholder="currentDate"
-            />
-            <input
-              type="date"
-              v-model="reservationDTO.reservationDate"
-              class="form-control"
-              placeholder="reservationDate"
-            />
-
-            <input
-              type="text"
-              v-model="reservationDTO.description"
-              class="form-control"
-              placeholder="description"
-            />
-            <button type="submit" class="btn btn-danger">
-              สร้าง
-            </button>
-          </form>
         </div>
       </div>
     </div>
@@ -112,27 +112,20 @@ export default {
     }
   },
   created() {
-    this.ReservationLoad()
+    this.saveData()
   },
   mounted() {
     console.log(this.$route.params.storeid)
     console.log(this.$route.params.promotionid)
   },
   methods: {
-    ReservationLoad() {
-      var page = 'http://localhost:8080/reservations/max'
-      axios.get(page).then(({ data }) => {
-        console.log(data)
-        this.reservationid = data.body.reservationId
-        console.log(this.reservationid)
-      })
-    },
     saveData() {
+      var today = new Date()
       var page =
-        'http://localhost:8080/reservations/?storeId=' +
-        this.$route.params.storeid +
+        'http://localhost:8080/payments/?reservationId' +
+        this.$route.params.reservationid +
         '&promotionId=' +
-        this.$route.params.promotionid
+        today
       axios.post(page, this.reservationDTO).then(({ data }) => {
         this.reservationDTO.firstName = ''
         this.reservationDTO.lastName = ''
@@ -141,7 +134,6 @@ export default {
         this.reservationDTO.reservationDate = ''
         this.reservationDTO.description = ''
       })
-      this.$router.push('/payment/' + (this.reservationid + 1))
     }
   }
 }

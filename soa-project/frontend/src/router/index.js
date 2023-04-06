@@ -33,7 +33,7 @@ export default new Router({
       component: Promotion
     },
     {
-      path: '/payment',
+      path: '/payment/:reservationid',
       name: 'Payment',
       component: Payment
     }

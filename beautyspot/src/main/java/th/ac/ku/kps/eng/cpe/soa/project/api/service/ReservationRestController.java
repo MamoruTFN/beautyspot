@@ -1,5 +1,6 @@
 package th.ac.ku.kps.eng.cpe.soa.project.api.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -81,6 +82,7 @@ public class ReservationRestController {
 		Response<Reservation> res = new Response<>();
 		try {
 			Reservation reservation = new Reservation();
+			
 			Customer customer = new Customer();
 			customer.cloneDto(reservationDTO);
 			customerService.save(customer);
@@ -90,6 +92,7 @@ public class ReservationRestController {
 			reservation.setCustomer(customer);
 			reservation.setPromotion(promotion);
 			reservation.setStoreprice(storeprice);
+			reservation.setCurrentDate(new Date());
 			
 			reservationService.save(reservation);
 			

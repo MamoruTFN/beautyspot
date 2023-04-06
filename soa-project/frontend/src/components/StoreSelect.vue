@@ -91,13 +91,35 @@
                         </p>
                         <p class="text-xs text-secondary mb-0">
                           {{ store.province }} {{ store.district }}
-                          {{ store.subdistrict }}
+                          {{ store.subdistrict }} {{ timestamp }}
                         </p>
                       </td>
                       <td class="align-middle text-start">
-                        <soft-badge color="success" variant="gradient" size="sm"
-                          >online</soft-badge
+                        <div
+                          v-if="
+                            timestamp >= store.openTime &&
+                              timestamp < store.closeTime
+                          "
+                          style="border-radius: 8%; text-align: center; width: 70px; height: 30px; background-image: url('https://images.pexels.com/photos/6985259/pexels-photo-6985259.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');"
                         >
+                          <soft-badge
+                            color="success"
+                            variant="gradient"
+                            size="sm"
+                            >online</soft-badge
+                          >
+                        </div>
+                        <div
+                          v-else
+                          style="border-radius: 8%; text-align: center; width: 70px; height: 30px; background-image: url('https://images.pexels.com/photos/6984984/pexels-photo-6984984.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');"
+                        >
+                          <soft-badge
+                            color="success"
+                            variant="gradient"
+                            size="sm"
+                            >offline</soft-badge
+                          >
+                        </div>
                       </td>
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{
@@ -151,10 +173,12 @@ export default {
         closeTime: '',
         phoneNumber: '',
         type: ''
-      }
+      },
+      timestamp: ''
     }
   },
   created() {
+    this.currentDate()
     this.CustomereLoad()
   },
   mounted() {
@@ -167,6 +191,13 @@ export default {
         console.log(data)
         this.result = data.body
       })
+    },
+    currentDate() {
+      var today = new Date()
+      const time =
+        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+      console.log(today)
+      this.timestamp = time
     }
   }
 }

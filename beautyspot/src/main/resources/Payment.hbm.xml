@@ -12,7 +12,7 @@
         <property name="price" type="double">
             <column name="price" not-null="true" precision="22" scale="0"/>
         </property>
-        <property name="currentDate" type="date">
+        <property name="currentDate" type="timestamp">
             <column length="10" name="currentDate" not-null="true"/>
         </property>
     </class>

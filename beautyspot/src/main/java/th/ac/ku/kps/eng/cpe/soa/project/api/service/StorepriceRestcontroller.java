@@ -1,5 +1,8 @@
 package th.ac.ku.kps.eng.cpe.soa.project.api.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import th.ac.ku.kps.eng.cpe.soa.project.api.util.Response;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Price;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Storeprice;
+import th.ac.ku.kps.eng.cpe.soa.project.model.DTO.StorePriceDTO;
+import th.ac.ku.kps.eng.cpe.soa.project.service.PriceService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.StorepriceService;
 
 @RestController
@@ -31,6 +37,9 @@ import th.ac.ku.kps.eng.cpe.soa.project.service.StorepriceService;
 public class StorepriceRestcontroller {
 	@Autowired
 	private StorepriceService storepriceService;
+	
+	@Autowired
+	private PriceService priceService;
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -79,6 +88,34 @@ public class StorepriceRestcontroller {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<Storeprice>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/price/{id}")
+	public ResponseEntity<Response<List<StorePriceDTO>>> findAllPriceByStoreId(@PathVariable("id") int id) {
+		Response<List<StorePriceDTO>> res = new Response<>();
+		try {
+			List<Storeprice> storeprice = storepriceService.findAll();
+			List<StorePriceDTO> storePriceDTOs = new ArrayList<StorePriceDTO>();
+			for(Storeprice sp:storeprice) {
+				if(sp.getStore().getStoreId() == id) {
+					StorePriceDTO spd = new StorePriceDTO();
+				int priceId = sp.getPrice().getPriceId();
+				Price p = priceService.findById(priceId);
+				spd.setName(p.getName());
+				spd.setPrice(p.getAmount());
+				spd.setStorePriceId(sp.getStorepriceId());
+				storePriceDTOs.add(spd);
+				}
+				
+			}
+			res.setBody(storePriceDTOs);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<List<StorePriceDTO>>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<List<StorePriceDTO>>>(res, res.getHttpStatus());
 		}
 	}
 

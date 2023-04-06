@@ -18,6 +18,10 @@ public class PriceService {
 		return (List<Price>) priceRepository.findAll();
 	}
 	
+	public List<Price> findAllByStoreId(int storeId){
+		return (List<Price>) priceRepository.findAllBystoreId(storeId);
+	}
+	
 	public Price findById(int id) {
 		return priceRepository.findById(id).get();
 	}
