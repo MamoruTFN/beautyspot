@@ -6,6 +6,7 @@ import StoreSelect from '@/components/StoreSelect'
 import Promotion from '@/components/Promotion'
 import Reservation from '@/components/Reservation'
 import Payment from '@/components/Payment'
+import Statistics from '@/components/statistics'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/payment/:reservationid',
       name: 'Payment',
       component: Payment
+    },
+    {
+      path: '/statistics',
+      name: 'Statistics',
+      component: Statistics
     }
   ]
 })
