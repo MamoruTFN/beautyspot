@@ -1,142 +1,202 @@
-<template>
-  <div class="py-4 container-fluid">
-    <div style="position: absolute; top: 0px; left: 0px">
-      <nav
-        class="navbar navbar-expand-sm bg-dark navbar-dark"
-        style="width: 98vw"
-      >
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Beauty Spot</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapsibleNavbar"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#">ประวัติการจอง</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">การชำระเงิน</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">ข้อมูลของฉัน</a>
-              </li>
-            </ul>
+<template >
+  <section
+    style="background-color: #f0ffff; padding: 0; margin: 0; height: 100%"
+  >
+    <div id="app">
+      <div id="app">
+        <div class="py-4 container-fluid">
+          <div style="position: absolute; top: 0px; left: 0px">
+            <nav
+              class="navbar navbar-expand-sm bg-dark navbar-dark"
+              style="width: 100vw"
+            >
+              <div class="container-fluid">
+                <a class="navbar-brand" href="#">Beauty Spot</a>
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapsibleNavbar"
+                >
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">ประวัติการจอง</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">การชำระเงิน</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">ข้อมูลของฉัน</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
           </div>
         </div>
-      </nav>
-      <div class="col-lg-12">
-        <div class="row align-items-center justify-content-center">
-          <div class="col-md-7"><br /></div>
-        </div>
+        <router-view />
       </div>
-      <div class="row align-items-center justify-content-center">
-        <div class="col-md-7">
-          <div class="card">
-            <div class="card-header pb-0 px-3">
-              <h6 class="mb-0">Billing Information</h6>
-            </div>
-            <div class="card-body pt-4 p-3">
-              <ul class="list-group">
-                <li
-                  class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg"
+    </div>
+
+    <div class="py-4 container-fluid">
+      <div
+        style="
+          width: 100%;
+          height: auto;
+          margin-top: 5%;
+          display: flex;
+          justify-content: center;
+        "
+      >
+        <div class="card" style="width: 50%">
+          <div class="card-body">
+            <li
+              class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg"
+            >
+              <div class="d-flex flex-column">
+                <h6 class="mb-3 text-sm">{{ customer.firstName }}</h6>
+                <span class="mb-2 text-xs">
+                  Company Name:
+                  <span class="text-dark font-weight-bold ms-sm-2"
+                    >Viking Burrito</span
+                  ></span
+                ><span class="mb-2 text-xs">
+                  Email Address:
+                  <span class="text-dark ms-sm-2 font-weight-bold"
+                    >oliver@burrito.com</span
+                  ></span
+                ><span class="text-xs">
+                  VAT Number:
+                  <span class="text-dark ms-sm-2 font-weight-bold"
+                    >FRB1235476</span
+                  ></span
                 >
-                  <div class="d-flex flex-column">
-                    <h6 class="mb-3 text-sm">Oliver Liam</h6>
-                    <span class="mb-2 text-xs">
-                      Company Name:
-                      <span class="text-dark font-weight-bold ms-sm-2"
-                        >Viking Burrito</span
-                      ></span
-                    ><span class="mb-2 text-xs">
-                      Email Address:
-                      <span class="text-dark ms-sm-2 font-weight-bold"
-                        >oliver@burrito.com</span
-                      ></span
-                    ><span class="text-xs">
-                      VAT Number:
-                      <span class="text-dark ms-sm-2 font-weight-bold"
-                        >FRB1235476</span
-                      ></span
-                    >
-                  </div>
-                  <div class="ms-auto text-end">
-                    <a
-                      class="btn btn-link text-danger text-gradient px-3 mb-0"
-                      href="javascript:;"
-                      ><i class="far fa-trash-alt me-2" aria-hidden="true"></i
-                      >Delete </a
-                    ><a
-                      class="btn btn-link text-dark px-3 mb-0"
-                      href="javascript:;"
-                      ><i
-                        class="fas fa-pencil-alt text-dark me-2"
-                        aria-hidden="true"
-                      ></i
-                      >Edit
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </div>
+              </div>
+              <div class="ms-auto text-end">
+                <a
+                  class="btn btn-link text-danger text-gradient px-3 mb-0"
+                  href="javascript:;"
+                  ><i class="far fa-trash-alt me-2" aria-hidden="true"></i
+                  >Delete </a
+                ><a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"
+                  ><i
+                    class="fas fa-pencil-alt text-dark me-2"
+                    aria-hidden="true"
+                  ></i
+                  >Edit
+                </a>
+              </div>
+            </li>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <div
+      style="
+        display: flex
+        justify-content: center;
+        flex-direction: column;
+        margin-inline: 30%;
+      "
+    >
+      <h5>Payment and Promption</h5>
+      <div style="padding-inline: 100px; display: flex; flex-direction: column">
+        <label for="quantity">quantity:</label>
+        <input type="number" id="quantity" v-model="quantity" />
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" v-model="price" />
+
+        <label for="discount">Discount:</label>
+        <input type="number" id="discount" v-model="discount" />
+
+        <p style="margin-top: 30px">Summit: {{ totalPrice }}</p>
+      </div>
+    </div>
+  </section>
 </template>
+
 <script>
 import Vue from 'vue'
 import axios from 'axios'
 Vue.use(axios)
 export default {
-  name: 'Payment',
   data() {
     return {
       result: {},
-
-      reservationDTO: {
+      customer: {
         firstName: '',
-        lastName: '',
-        tel: '',
-        currentDate: '',
-        reservationDate: '',
-        description: ''
+        LastName: '',
+        tel: ''
       },
-      reservationid: ''
+      quantity: 0,
+      price: 0,
+      discount: 0
+    }
+  },
+  computed: {
+    totalPrice() {
+      let total = this.quantity * this.price
+      if (this.quantity >= 2) {
+        total = total - (total * this.discount) / 100
+      }
+      return total
     }
   },
   created() {
-    this.saveData()
+    this.CustomereLoad()
   },
   mounted() {
-    console.log(this.$route.params.storeid)
-    console.log(this.$route.params.promotionid)
+    console.log('mounted() called.......')
   },
   methods: {
-    saveData() {
-      var today = new Date()
-      var page =
-        'http://localhost:8080/payments/?reservationId' +
-        this.$route.params.reservationid +
-        '&promotionId=' +
-        today
-      axios.post(page, this.reservationDTO).then(({ data }) => {
-        this.reservationDTO.firstName = ''
-        this.reservationDTO.lastName = ''
-        this.reservationDTO.tel = ''
-        this.reservationDTO.currentDate = ''
-        this.reservationDTO.reservationDate = ''
-        this.reservationDTO.description = ''
+    CustomereLoad() {
+      var page = 'http://localhost:8080/customer/1'
+      axios.get(page).then(({ data }) => {
+        console.log(data)
+        this.result = data.body
       })
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+/* .all {
+  flex: 1 width 1000px;
+  height: 1000px;
+  display: flex;
+  justify-content: center;
+}
+.sum {
+  background-color: blue;
+  flex: 3 width 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+.user {
+  background-color: bisque;
+  padding: 80px;
+  display: flex;
+}
+.customer {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.button {
+  background-color: aqua;
+  width: 300px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+} */
