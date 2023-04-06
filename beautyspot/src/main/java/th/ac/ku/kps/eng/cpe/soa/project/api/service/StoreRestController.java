@@ -68,6 +68,22 @@ public class StoreRestController {
 		return new ResponseEntity<Response<ObjectNode>>(res, res.getHttpStatus());
 	}
 	
+	@GetMapping("/ranking")
+    public ResponseEntity<Response<List<Store>>> findById() {
+        Response<List<Store>> res = new Response<>();
+        try {
+            List<Store> stores = storeService.rankingStoreByReservation();
+            res.setMessage("find success");
+            res.setBody(stores);
+            res.setHttpStatus(HttpStatus.OK);
+            return new ResponseEntity<Response<List<Store>>>(res, res.getHttpStatus());
+        } catch (Exception ex) {
+            res.setBody(null);
+            res.setHttpStatus(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Response<List<Store>>>(res, res.getHttpStatus());
+        }
+    }
+	
 	@GetMapping("/")
 	public ResponseEntity<Response<List<StoreDTO>>> findAll(){
 		Response<List<StoreDTO>> res = new Response<>();

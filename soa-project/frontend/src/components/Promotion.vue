@@ -3,13 +3,13 @@
     class="py-4 container-fluid"
     style="align-items: center; justify-content: center; display: flex; flex-direction: column;"
   >
-    <div style="position: absolute; top: 0px; left: 0px">
+    <div style="position: absolute; top: 0px; left: 0px ">
       <nav
         class="navbar navbar-expand-sm bg-dark navbar-dark"
         style="width: 100vw;"
       >
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Beauty Spot</a>
+          <router-link class="navbar-brand" :to="'/'">Beauty Spot</router-link>
           <div
             class="collapse navbar-collapse"
             id="collapsibleNavbar"
@@ -17,7 +17,9 @@
           >
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="#">สถิติการจองของร้าน</a>
+                <router-link class="nav-link" :to="'/'"
+                  >สถิติการจองของร้าน</router-link
+                >
               </li>
             </ul>
           </div>

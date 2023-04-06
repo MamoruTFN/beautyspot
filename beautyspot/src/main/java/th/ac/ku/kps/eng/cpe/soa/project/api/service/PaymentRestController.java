@@ -148,8 +148,8 @@ public class PaymentRestController {
 		}
 	}
 
-	@PostMapping("/")
-	public ResponseEntity<Response<PaymentDTO>> createPayment(@RequestParam("reservationId") int reservationId, @RequestParam("date")Date date) {
+	@PostMapping("/{id}")
+	public ResponseEntity<Response<PaymentDTO>> createPayment(@PathVariable("id") int reservationId) {
 		Response<PaymentDTO> res = new Response<>();
 		try {
 			PaymentDTO dto = new PaymentDTO();
@@ -158,7 +158,7 @@ public class PaymentRestController {
 			
 			Payment payment = new Payment();
 			payment.setReservation(reservation);
-			payment.setCurrentDate(date);
+			payment.setCurrentDate(new Date());
 			
 			
 			Store store = storeService.findByReservation(reservation);
@@ -182,6 +182,7 @@ public class PaymentRestController {
 			dto.setPrice(payment.getPrice());
 			
 			paymentService.save(payment);
+			dto.setPaymentId(payment.getPaymentId());
 			res.setMessage("Create Success");
 			res.setBody(dto);
 			res.setHttpStatus(HttpStatus.OK);

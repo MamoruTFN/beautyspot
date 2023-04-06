@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class PaymentDTO {
 	
+	private int paymentId;
 	private String storeName;
 	private String phoneNumber;
 	private String promotionName;
@@ -19,7 +20,7 @@ public class PaymentDTO {
 	}
 
 	public PaymentDTO(String storeName, String phoneNumber, String promotionName, String firstName, String lastName,
-			String tel, String storepriceName, Date reservationDate, double price) {
+			String tel, String storepriceName, Date reservationDate, double price,int paymentId) {
 		super();
 		this.storeName = storeName;
 		this.phoneNumber = phoneNumber;
@@ -30,6 +31,7 @@ public class PaymentDTO {
 		this.storepriceName = storepriceName;
 		this.reservationDate = reservationDate;
 		this.price = price;
+		this.paymentId = paymentId;
 	}
 
 	public String getStoreName() {
@@ -102,6 +104,14 @@ public class PaymentDTO {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public int getPaymentId() {
+		return paymentId;
+	}
+
+	public void setPaymentId(int paymentId) {
+		this.paymentId = paymentId;
 	}
 
 	

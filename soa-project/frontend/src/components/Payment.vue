@@ -1,202 +1,152 @@
-<template >
-  <section
-    style="background-color: #f0ffff; padding: 0; margin: 0; height: 100%"
-  >
-    <div id="app">
-      <div id="app">
-        <div class="py-4 container-fluid">
-          <div style="position: absolute; top: 0px; left: 0px">
-            <nav
-              class="navbar navbar-expand-sm bg-dark navbar-dark"
-              style="width: 100vw"
-            >
-              <div class="container-fluid">
-                <a class="navbar-brand" href="#">Beauty Spot</a>
-                <button
-                  class="navbar-toggler"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapsibleNavbar"
-                >
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                  <ul class="navbar-nav">
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">ประวัติการจอง</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">การชำระเงิน</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">ข้อมูลของฉัน</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </nav>
-          </div>
-        </div>
-        <router-view />
-      </div>
-    </div>
-
-    <div class="py-4 container-fluid">
-      <div
-        style="
-          width: 100%;
-          height: auto;
-          margin-top: 5%;
-          display: flex;
-          justify-content: center;
-        "
+<template>
+  <div class="py-4 container-fluid">
+    <div style="position: absolute; top: 0px; left: 0px">
+      <nav
+        class="navbar navbar-expand-sm bg-dark navbar-dark"
+        style="width: 100vw;"
       >
-        <div class="card" style="width: 50%">
-          <div class="card-body">
-            <li
-              class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg"
-            >
-              <div class="d-flex flex-column">
-                <h6 class="mb-3 text-sm">{{ customer.firstName }}</h6>
-                <span class="mb-2 text-xs">
-                  Company Name:
-                  <span class="text-dark font-weight-bold ms-sm-2"
-                    >Viking Burrito</span
-                  ></span
-                ><span class="mb-2 text-xs">
-                  Email Address:
-                  <span class="text-dark ms-sm-2 font-weight-bold"
-                    >oliver@burrito.com</span
-                  ></span
-                ><span class="text-xs">
-                  VAT Number:
-                  <span class="text-dark ms-sm-2 font-weight-bold"
-                    >FRB1235476</span
-                  ></span
+        <div class="container-fluid">
+          <router-link class="navbar-brand" :to="'/'">Beauty Spot</router-link>
+          <div
+            class="collapse navbar-collapse"
+            id="collapsibleNavbar"
+            style="margin-left: 80%;"
+          >
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <router-link class="nav-link" :to="'/'"
+                  >สถิติการจองของร้าน</router-link
                 >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="col-lg-12">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-7"><br /></div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" @click="showOthers()">
+        แสดงรายการจองของท่าน
+      </button>
+      <div id="show" style="display: none;">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-7">
+            <div class="card">
+              <div class="card-header pb-0 px-3">
+                <h6 class="mb-0">Billing Information</h6>
               </div>
-              <div class="ms-auto text-end">
-                <a
-                  class="btn btn-link text-danger text-gradient px-3 mb-0"
-                  href="javascript:;"
-                  ><i class="far fa-trash-alt me-2" aria-hidden="true"></i
-                  >Delete </a
-                ><a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"
-                  ><i
-                    class="fas fa-pencil-alt text-dark me-2"
-                    aria-hidden="true"
-                  ></i
-                  >Edit
-                </a>
+
+              <div class="card-body pt-4 p-3">
+                <ul class="list-group">
+                  <li
+                    class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg"
+                  >
+                    <div class="d-flex flex-column">
+                      <h6 class="mb-3 text-sm">
+                        ชื่อร้าน : {{ result.storeName }}
+                      </h6>
+                      <span class="mb-2 text-xs">
+                        ชื่อลูกค้า: {{ result.firstName }}
+                        {{ result.lastName }}
+                        <span class="text-dark font-weight-bold ms-sm-2"
+                          >เบอร์โทรศัพท์ : {{ result.tel }}</span
+                        ></span
+                      ><span class="mb-2 text-xs">
+                        โปรแกรมที่ทำ:
+                        <span class="text-dark ms-sm-2 font-weight-bold">{{
+                          result.storepriceName
+                        }}</span></span
+                      ><span class="mb-2 text-xs">
+                        ส่วนลด:
+                        <span class="text-dark ms-sm-2 font-weight-bold">{{
+                          result.promotionName
+                        }}</span></span
+                      ><span class="text-xs">
+                        ราคารวมส่วนลด:
+                        <span class="text-dark ms-sm-2 font-weight-bold">{{
+                          result.price
+                        }}</span></span
+                      >
+                    </div>
+                    <div class="ms-auto text-end">
+                      <a
+                        class="btn btn-link text-danger text-gradient px-3 mb-0"
+                        ><button
+                          type="button"
+                          class="btn btn-danger"
+                          @click="remove()"
+                        >
+                          ยกเลิก
+                        </button>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
               </div>
-            </li>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <div
-      style="
-        display: flex
-        justify-content: center;
-        flex-direction: column;
-        margin-inline: 30%;
-      "
-    >
-      <h5>Payment and Promption</h5>
-      <div style="padding-inline: 100px; display: flex; flex-direction: column">
-        <label for="quantity">quantity:</label>
-        <input type="number" id="quantity" v-model="quantity" />
-
-        <label for="price">Price:</label>
-        <input type="number" id="price" v-model="price" />
-
-        <label for="discount">Discount:</label>
-        <input type="number" id="discount" v-model="discount" />
-
-        <p style="margin-top: 30px">Summit: {{ totalPrice }}</p>
-      </div>
-    </div>
-  </section>
+  </div>
 </template>
-
 <script>
 import Vue from 'vue'
 import axios from 'axios'
 Vue.use(axios)
 export default {
+  name: 'Payment',
   data() {
     return {
       result: {},
-      customer: {
+
+      payment: {
+        storeName: '',
+        phoneNumber: '',
+        promotionName: '',
         firstName: '',
-        LastName: '',
+        lastName: '',
+        storepriceName: '',
+        reservationDate: '',
+        price: '',
+        paymentId: '',
         tel: ''
       },
-      quantity: 0,
-      price: 0,
-      discount: 0
-    }
-  },
-  computed: {
-    totalPrice() {
-      let total = this.quantity * this.price
-      if (this.quantity >= 2) {
-        total = total - (total * this.discount) / 100
-      }
-      return total
+      reservationid: ''
     }
   },
   created() {
-    this.CustomereLoad()
+    console.log('payment2')
   },
   mounted() {
-    console.log('mounted() called.......')
+    console.log('payment1')
   },
   methods: {
-    CustomereLoad() {
-      var page = 'http://localhost:8080/customer/1'
-      axios.get(page).then(({ data }) => {
-        console.log(data)
+    saveData() {
+      var page =
+        'http://localhost:8080/payments/' + this.$route.params.reservationid
+
+      axios.post(page).then(({ data }) => {
+        console.log(data.body)
         this.result = data.body
+        console.log(this.result)
       })
+    },
+    remove() {
+      var page = 'http://localhost:8080/payments/' + this.result.paymentId
+
+      axios.delete(page).then(({ data }) => {
+        this.$router.push('/')
+      })
+    },
+    showOthers() {
+      this.saveData()
+      document.getElementById('show').style.display = 'block'
     }
   }
 }
 </script>
 
-<style scoped>
-/* .all {
-  flex: 1 width 1000px;
-  height: 1000px;
-  display: flex;
-  justify-content: center;
-}
-.sum {
-  background-color: blue;
-  flex: 3 width 500px;
-  height: 500px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-}
-.user {
-  background-color: bisque;
-  padding: 80px;
-  display: flex;
-}
-.customer {
-  background-color: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.button {
-  background-color: aqua;
-  width: 300px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-} */
+<!-- Add "scoped" attribute to limit CSS to this component only -->

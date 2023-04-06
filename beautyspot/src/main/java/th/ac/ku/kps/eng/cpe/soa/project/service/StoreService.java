@@ -38,4 +38,8 @@ public class StoreService {
 	public Store findByReservation(Reservation reservation) {
 		return storeRepository.findByReservation(reservation);
 	}
+	
+	public List<Store> rankingStoreByReservation(){
+        return storeRepository.rankingByreservation();
+    }
 }

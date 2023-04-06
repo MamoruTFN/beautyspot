@@ -9,7 +9,7 @@
         style="width: 100vw;"
       >
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Beauty Spot</a>
+          <router-link class="navbar-brand" :to="'/'">Beauty Spot</router-link>
           <div
             class="collapse navbar-collapse"
             id="collapsibleNavbar"
@@ -17,7 +17,9 @@
           >
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="#">สถิติการจองของร้าน</a>
+                <router-link class="nav-link" :to="'/'"
+                  >สถิติการจองของร้าน</router-link
+                >
               </li>
             </ul>
           </div>
@@ -140,7 +142,7 @@
                         >
                           <a
                             :href="'/promotion/' + store.storeId"
-                            class="text-secondary font-weight-bold"
+                            class="font-weight-bold"
                             data-toggle="tooltip"
                             data-original-title="Edit user"
                             style="text-decoration: none; color: white;"

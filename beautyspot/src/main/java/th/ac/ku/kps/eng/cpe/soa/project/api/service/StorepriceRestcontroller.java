@@ -107,7 +107,6 @@ public class StorepriceRestcontroller {
 				spd.setStorePriceId(sp.getStorepriceId());
 				storePriceDTOs.add(spd);
 				}
-				
 			}
 			res.setBody(storePriceDTOs);
 			res.setHttpStatus(HttpStatus.OK);

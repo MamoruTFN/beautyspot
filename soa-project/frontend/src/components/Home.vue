@@ -6,11 +6,17 @@
         style="width: 98.9vw;"
       >
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Beauty Spot</a>
+          <router-link class="navbar-brand"
+              :to="'/'"
+              >Beauty Spot</router-link
+            >
           <div class="collapse navbar-collapse" id="collapsibleNavbar" style="margin-left: 80%;">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="#">สถิติการจองของร้าน</a>
+                <router-link class="nav-link"
+              :to="'/'"
+              >สถิติการจองของร้าน</router-link
+            >
               </li>
             </ul>
           </div>
