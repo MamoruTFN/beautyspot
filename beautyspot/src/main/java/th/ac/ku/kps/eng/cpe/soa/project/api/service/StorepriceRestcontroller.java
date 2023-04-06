@@ -85,6 +85,7 @@ public class StorepriceRestcontroller {
 			res.setHttpStatus(HttpStatus.OK);
 			return new ResponseEntity<Response<Storeprice>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
+			res.setMessage(ex.toString());
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<Storeprice>>(res, res.getHttpStatus());

@@ -76,6 +76,7 @@ public class CustomerRestController {
 			res.setHttpStatus(HttpStatus.OK);
 			return new ResponseEntity<Response<Customer>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
+			res.setMessage(ex.toString());
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<Customer>>(res, res.getHttpStatus());

@@ -134,18 +134,20 @@ public class StoreRestController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Response<Store>> findById(@PathVariable("id") int id) {
-		Response<Store> res = new Response<>();
+	public ResponseEntity<Response<String>> findById(@PathVariable("id") int id) {
+		Response<String> res = new Response<>();
 		try {
-			Store store = storeService.findById(id);
+			String store ="test";
+			//Store store = storeService.findById(id);
 			res.setMessage("find " + id + "success");
 			res.setBody(store);
 			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<Store>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
+			res.setMessage(ex.toString());
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<Store>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
 		}
 	}
 	

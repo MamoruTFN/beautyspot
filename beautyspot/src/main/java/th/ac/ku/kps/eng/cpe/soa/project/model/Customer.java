@@ -14,7 +14,7 @@ import th.ac.ku.kps.eng.cpe.soa.project.model.DTO.ReservationDTO;
  */
 public class Customer implements java.io.Serializable {
 
-	private Integer customerId;
+	private int customerId;
 	private String firstName;
 	private String lastName;
 	private String tel;

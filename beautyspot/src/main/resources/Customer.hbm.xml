@@ -2,7 +2,7 @@
 <!-- Generated Apr 5, 2023, 5:31:43 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class catalog="beautyspot" name="th.ac.ku.kps.eng.cpe.soa.project.model.Customer" optimistic-lock="none" table="customer">
-        <id name="customerId" type="java.lang.Integer">
+        <id name="customerId" type="int">
             <column name="customerId"/>
             <generator class="identity"/>
         </id>
