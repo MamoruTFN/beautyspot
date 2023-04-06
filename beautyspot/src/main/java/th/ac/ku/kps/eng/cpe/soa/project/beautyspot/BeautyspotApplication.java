@@ -18,7 +18,7 @@ public class BeautyspotApplication extends SpringBootServletInitializer{
 	
 	@Override
     protected SpringApplicationBuilder configure (SpringApplicationBuilder builder) {
-        return builder.sources(BeautyspotApplication.class);
+        return     builder.sources(BeautyspotApplication.class);
     }
 
 }

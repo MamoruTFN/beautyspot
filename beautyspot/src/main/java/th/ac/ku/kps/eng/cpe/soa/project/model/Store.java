@@ -1,5 +1,5 @@
 package th.ac.ku.kps.eng.cpe.soa.project.model;
-// Generated Apr 6, 2023, 12:03:22 AM by Hibernate Tools 5.6.3.Final
+// Generated Apr 6, 2023, 1:10:53 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +25,7 @@ public class Store implements java.io.Serializable {
 	private String phoneNumber;
 	private String type;
 	@JsonIgnore
-	private List<Reservation> reservations = new ArrayList<Reservation>();
+	private List<Storeprice> storeprices = new ArrayList<Storeprice>();
 	@JsonIgnore
 	private List<Employee> employees = new ArrayList<Employee>();
 
@@ -45,7 +45,7 @@ public class Store implements java.io.Serializable {
 	}
 
 	public Store(Integer storeId, Subdistrict subdistrict, String number, String road, String name, Date openTime,
-			Date closeTime, String phoneNumber, String type, List<Reservation> reservations, List<Employee> employees) {
+			Date closeTime, String phoneNumber, String type, List<Storeprice> storeprices, List<Employee> employees) {
 		super();
 		this.storeId = storeId;
 		this.subdistrict = subdistrict;
@@ -56,11 +56,11 @@ public class Store implements java.io.Serializable {
 		this.closeTime = closeTime;
 		this.phoneNumber = phoneNumber;
 		this.type = type;
-		this.reservations = reservations;
+		this.storeprices = storeprices;
 		this.employees = employees;
 	}
 	
-	public void clone(Store other) {
+	public void clone (Store other) {
 		this.number = other.number;
 		this.road = other.road;
 		this.name = other.name;
@@ -142,12 +142,12 @@ public class Store implements java.io.Serializable {
 		this.type = type;
 	}
 
-	public List<Reservation> getReservations() {
-		return reservations;
+	public List<Storeprice> getStoreprices() {
+		return storeprices;
 	}
 
-	public void setReservations(List<Reservation> reservations) {
-		this.reservations = reservations;
+	public void setStoreprices(List<Storeprice> storeprices) {
+		this.storeprices = storeprices;
 	}
 
 	public List<Employee> getEmployees() {

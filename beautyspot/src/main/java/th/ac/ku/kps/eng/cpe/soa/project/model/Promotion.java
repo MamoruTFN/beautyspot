@@ -1,5 +1,5 @@
 package th.ac.ku.kps.eng.cpe.soa.project.model;
-// Generated Apr 5, 2023, 5:31:43 PM by Hibernate Tools 5.6.3.Final
+// Generated Apr 6, 2023, 1:10:53 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,9 +17,7 @@ public class Promotion implements java.io.Serializable {
 	private String name;
 	private double percentDiscount;
 	@JsonIgnore
-	private List<Reservation> reservations = new ArrayList<>();
-	@JsonIgnore
-	private List<Payment> payments = new ArrayList<>();
+	private List<Reservation> reservations = new ArrayList<Reservation>();
 
 	public Promotion() {
 	}
@@ -29,17 +27,15 @@ public class Promotion implements java.io.Serializable {
 		this.percentDiscount = percentDiscount;
 	}
 
-	public Promotion(Integer promotionId, String name, double percentDiscount, List<Reservation> reservations,
-			List<Payment> payments) {
+	public Promotion(Integer promotionId, String name, double percentDiscount, List<Reservation> reservations) {
 		super();
 		this.promotionId = promotionId;
 		this.name = name;
 		this.percentDiscount = percentDiscount;
 		this.reservations = reservations;
-		this.payments = payments;
 	}
 	
-	public void clone(Promotion other) {
+	public void clone (Promotion other) {
 		this.name = other.name;
 		this.percentDiscount = other.percentDiscount;
 	}
@@ -74,14 +70,6 @@ public class Promotion implements java.io.Serializable {
 
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
-	}
-
-	public List<Payment> getPayments() {
-		return payments;
-	}
-
-	public void setPayments(List<Payment> payments) {
-		this.payments = payments;
 	}
 
 	

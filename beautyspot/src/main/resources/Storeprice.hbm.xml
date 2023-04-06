@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Apr 6, 2023, 1:10:53 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="beautyspot" name="th.ac.ku.kps.eng.cpe.soa.project.model.Storeprice" optimistic-lock="none" table="storeprice">
+        <id name="storepriceId" type="java.lang.Integer">
+            <column name="storepriceId"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Price" fetch="select" name="price">
+            <column name="priceId" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.soa.project.model.Store" fetch="select" name="store">
+            <column name="storeId" not-null="true"/>
+        </many-to-one>
+        <bag fetch="select" inverse="true" lazy="true" name="reservations" table="reservation">
+            <key>
+                <column name="StorePriceID" not-null="true"/>
+            </key>
+            <one-to-many class="th.ac.ku.kps.eng.cpe.soa.project.model.Reservation"/>
+        </bag>
+    </class>
+</hibernate-mapping>

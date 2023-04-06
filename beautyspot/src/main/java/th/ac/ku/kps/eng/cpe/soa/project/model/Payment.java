@@ -1,5 +1,5 @@
 package th.ac.ku.kps.eng.cpe.soa.project.model;
-// Generated Apr 5, 2023, 5:31:43 PM by Hibernate Tools 5.6.3.Final
+// Generated Apr 6, 2023, 1:10:53 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.Date;
 
@@ -12,35 +12,22 @@ public class Payment implements java.io.Serializable {
 
 	private Integer paymentId;
 	@JsonIgnore
-	private Customer customer;
-	@JsonIgnore
-	private Promotion promotion;
-	@JsonIgnore
 	private Reservation reservation;
-	private String type;
 	private double price;
 	private Date currentDate;
-	private String description;
 
 	public Payment() {
 	}
 
-	public Payment(Customer customer, Promotion promotion, Reservation reservation, String type, double price,
-			Date currentDate, String description) {
-		this.customer = customer;
-		this.promotion = promotion;
+	public Payment(Reservation reservation, double price, Date currentDate) {
 		this.reservation = reservation;
-		this.type = type;
 		this.price = price;
 		this.currentDate = currentDate;
-		this.description = description;
 	}
 	
 	public void clone(Payment other) {
-		this.type = other.type;
 		this.price = other.price;
 		this.currentDate = other.currentDate;
-		this.description = other.description;
 	}
 
 	public Integer getPaymentId() {
@@ -51,36 +38,12 @@ public class Payment implements java.io.Serializable {
 		this.paymentId = paymentId;
 	}
 
-	public Customer getCustomer() {
-		return this.customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public Promotion getPromotion() {
-		return this.promotion;
-	}
-
-	public void setPromotion(Promotion promotion) {
-		this.promotion = promotion;
-	}
-
 	public Reservation getReservation() {
 		return this.reservation;
 	}
 
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
-	}
-
-	public String getType() {
-		return this.type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public double getPrice() {
@@ -97,14 +60,6 @@ public class Payment implements java.io.Serializable {
 
 	public void setCurrentDate(Date currentDate) {
 		this.currentDate = currentDate;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 }

@@ -1,5 +1,7 @@
 package th.ac.ku.kps.eng.cpe.soa.project.api.service;
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,18 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import th.ac.ku.kps.eng.cpe.soa.project.api.util.Response;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Customer;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Payment;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Price;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Promotion;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Reservation;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Store;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Storeprice;
+import th.ac.ku.kps.eng.cpe.soa.project.model.DTO.PaymentDTO;
 import th.ac.ku.kps.eng.cpe.soa.project.service.PaymentService;
+import th.ac.ku.kps.eng.cpe.soa.project.service.PriceService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.PromotionService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.ReservationService;
+import th.ac.ku.kps.eng.cpe.soa.project.service.StoreService;
+import th.ac.ku.kps.eng.cpe.soa.project.service.StorepriceService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.CustomerService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.EmployeeService;
 
@@ -39,11 +48,15 @@ public class PaymentRestController {
 	@Autowired
 	private PaymentService paymentService;
 	@Autowired
-	private PromotionService promotionService;
+	private StoreService storeService;
 	@Autowired
 	private ReservationService reservationService;
 	@Autowired
+	private PromotionService promotionService;
+	@Autowired
 	private CustomerService customerService;
+	@Autowired
+	private PriceService priceService;
 
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -117,26 +130,47 @@ public class PaymentRestController {
 	}
 
 	@PostMapping("/")
-	public ResponseEntity<Response<Payment>> createPayment(@RequestParam("promotionId") int promotionId,
-			@RequestParam("reservationId") int reservationId, @RequestParam("customer") int customerId,
-			@Valid @RequestBody Payment payment) {
-		Response<Payment> res = new Response<>();
+	public ResponseEntity<Response<PaymentDTO>> createPayment(@RequestParam("reservationId") int reservationId, @RequestParam("date")Date date) {
+		Response<PaymentDTO> res = new Response<>();
 		try {
-			Promotion promotion = promotionService.findById(promotionId);
+			PaymentDTO dto = new PaymentDTO();
 			Reservation reservation = reservationService.findById(reservationId);
-			Customer customer = customerService.findById(customerId);
-			payment.setPromotion(promotion);
+			dto.setReservationDate(reservation.getReservationDate());
+			
+			Payment payment = new Payment();
 			payment.setReservation(reservation);
-			payment.setCustomer(customer);
+			payment.setCurrentDate(date);
+			
+			
+			Store store = storeService.findByReservation(reservation);
+			dto.setStoreName(store.getName());
+			dto.setPhoneNumber(store.getPhoneNumber());
+			
+			Promotion promotion  = promotionService.findByReservation(reservation);
+			dto.setPromotionName(promotion.getName());
+			
+			Customer customer = customerService.findByReservation(reservation);
+			dto.setFirstName(customer.getFirstName());
+			dto.setLastName(customer.getLastName());
+			dto.setTel(customer.getTel());
+			
+			Price price = priceService.findByReservation(reservation);
+			dto.setStorepriceName(price.getName());
+			
+			double discountPrice = (price.getAmount()*(1.00-promotion.getPercentDiscount()));
+			
+			payment.setPrice(discountPrice);
+			dto.setPrice(payment.getPrice());
+			
 			paymentService.save(payment);
 			res.setMessage("Create Success");
-			res.setBody(payment);
+			res.setBody(dto);
 			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<Payment>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<PaymentDTO>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<Payment>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<PaymentDTO>>(res, res.getHttpStatus());
 		}
 	}
 

@@ -10,11 +10,7 @@ import th.ac.ku.kps.eng.cpe.soa.project.model.Store;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Storeprice;
 
 @Repository
-public interface StoreRepository extends CrudRepository<Store, Integer> {
-	@Query("select s from Storeprice sp inner join sp.store s where sp = :storeprice")
-	public Store findStoreByStoreprice(@Param("storeprice")Storeprice storeprice);
-	
-	@Query("select s from Reservation r inner join r.storeprice sp inner join sp.store s where r = :reservation")
-	public Store findByReservation(@Param("reservation")Reservation reservation);
-	
+public interface StorepriceRepository extends CrudRepository<Storeprice, Integer>{
+	@Query("select sp from Reservation r inner join r.storeprice sp where r = :reservation")
+	public Storeprice findByReservation (@Param("reservation")Reservation reservation);
 }

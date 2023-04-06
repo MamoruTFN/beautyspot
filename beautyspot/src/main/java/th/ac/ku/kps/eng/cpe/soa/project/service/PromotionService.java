@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.ac.ku.kps.eng.cpe.soa.project.model.Promotion;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Reservation;
 import th.ac.ku.kps.eng.cpe.soa.project.repository.PromotionRepository;
 
 @Service
@@ -27,5 +28,9 @@ public class PromotionService {
 	
 	public void delete(Promotion promotion) {
 		promotionRepository.delete(promotion);
+	}
+	
+	public Promotion findByReservation(Reservation reservation) {
+		return promotionRepository.findByReservation(reservation);
 	}
 }

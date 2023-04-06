@@ -26,15 +26,19 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import th.ac.ku.kps.eng.cpe.soa.project.api.util.Response;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Customer;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Payment;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Promotion;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Reservation;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Store;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Storeprice;
 import th.ac.ku.kps.eng.cpe.soa.project.model.DTO.ReservationDTO;
 import th.ac.ku.kps.eng.cpe.soa.project.service.PromotionService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.ReservationService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.StoreService;
+import th.ac.ku.kps.eng.cpe.soa.project.service.StorepriceService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.CustomerService;
 import th.ac.ku.kps.eng.cpe.soa.project.service.EmployeeService;
+import th.ac.ku.kps.eng.cpe.soa.project.service.PaymentService;
 
 @CrossOrigin("http://localhost:8081/")
 @RestController
@@ -48,10 +52,9 @@ public class ReservationRestController {
 	private PromotionService promotionService;
 
 	@Autowired
-	private StoreService storeService;
-
-	@Autowired
 	private CustomerService customerService;
+	@Autowired
+	private StorepriceService storepriceService;
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -74,22 +77,22 @@ public class ReservationRestController {
 
 	@PostMapping("/")
 	public ResponseEntity<Response<Reservation>> createReservation(@Valid @RequestBody ReservationDTO reservationDTO,
-			@RequestParam("storeId") int storeId, @RequestParam("promotionId") int promotionId) {
+			@RequestParam("storepriceId") int storepriceId, @RequestParam("promotionId") int promotionId) {
 		Response<Reservation> res = new Response<>();
 		try {
-			System.out.println("in");
 			Reservation reservation = new Reservation();
 			Customer customer = new Customer();
 			customer.cloneDto(reservationDTO);
 			customerService.save(customer);
-			Store store = storeService.findById(storeId);
+			Storeprice storeprice = storepriceService.findById(storepriceId);
 			Promotion promotion = promotionService.findById(promotionId);
 			reservation.cloneDto(reservationDTO);
 			reservation.setCustomer(customer);
 			reservation.setPromotion(promotion);
-			reservation.setStore(store);
+			reservation.setStoreprice(storeprice);
 			
 			reservationService.save(reservation);
+			
 			res.setMessage("Create Success");
 			res.setBody(reservation);
 			res.setHttpStatus(HttpStatus.OK);
@@ -115,29 +118,6 @@ public class ReservationRestController {
 			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
 		}
 	}
-	
-	@GetMapping("/max")
-	public ResponseEntity<Response<Reservation>> findReservationByIdMax() {
-		Response<Reservation> res = new Response<>();
-		try {
-			List<Reservation> reservations = reservationService.findAll();
-			Reservation reservation = new Reservation();
-			int id = 1;
-			for(Reservation r : reservations) {
-				if(r.getReservationId() >= id) {
-					id = r.getReservationId();
-					reservation = r;
-				}
-			}
-			res.setBody(reservation);
-			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
-		} catch (Exception ex) {
-			res.setBody(null);
-			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
-		}
-	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Response<Reservation>> updateReservationById(@PathVariable("id") int id,
@@ -145,7 +125,7 @@ public class ReservationRestController {
 		Response<Reservation> res = new Response<>();
 		try {
 			Reservation r = reservationService.findById(id);
-			// r.clone(reservation);
+			r.clone(reservation);
 			reservationService.save(r);
 			res.setMessage("update " + id + "success");
 			res.setBody(r);
@@ -172,6 +152,29 @@ public class ReservationRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/max")
+	public ResponseEntity<Response<Reservation>> findReservationByIdMax() {
+		Response<Reservation> res = new Response<>();
+		try {
+			List<Reservation> reservations = reservationService.findAll();
+			Reservation reservation = new Reservation();
+			int id = 1;
+			for(Reservation r : reservations) {
+				if(r.getReservationId() >= id) {
+					id = r.getReservationId();
+					reservation = r;
+				}
+			}
+			res.setBody(reservation);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
 		}
 	}
 }

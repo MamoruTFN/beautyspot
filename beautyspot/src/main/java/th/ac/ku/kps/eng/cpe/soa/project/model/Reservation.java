@@ -1,5 +1,5 @@
 package th.ac.ku.kps.eng.cpe.soa.project.model;
-// Generated Apr 6, 2023, 12:03:22 AM by Hibernate Tools 5.6.3.Final
+// Generated Apr 6, 2023, 1:10:53 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import th.ac.ku.kps.eng.cpe.soa.project.model.DTO.ReservationDTO;
@@ -22,8 +23,10 @@ public class Reservation implements java.io.Serializable {
 	@JsonIgnore
 	private Promotion promotion;
 	@JsonIgnore
-	private Store store;
+	private Storeprice storeprice;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date currentDate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date reservationDate;
 	private String description;
 	private Integer otherGroupId;
@@ -33,23 +36,23 @@ public class Reservation implements java.io.Serializable {
 	public Reservation() {
 	}
 
-	public Reservation(Customer customer, Promotion promotion, Store store, Date currentDate, Date reservationDate,
-			String description) {
+	public Reservation(Customer customer, Promotion promotion, Storeprice storeprice, Date currentDate,
+			Date reservationDate, String description) {
 		this.customer = customer;
 		this.promotion = promotion;
-		this.store = store;
+		this.storeprice = storeprice;
 		this.currentDate = currentDate;
 		this.reservationDate = reservationDate;
 		this.description = description;
 	}
 
-	public Reservation(Integer reservationId, Customer customer, Promotion promotion, Store store, Date currentDate,
-			Date reservationDate, String description, Integer otherGroupId, List<Payment> payments) {
+	public Reservation(Integer reservationId, Customer customer, Promotion promotion, Storeprice storeprice,
+			Date currentDate, Date reservationDate, String description, Integer otherGroupId, List<Payment> payments) {
 		super();
 		this.reservationId = reservationId;
 		this.customer = customer;
 		this.promotion = promotion;
-		this.store = store;
+		this.storeprice = storeprice;
 		this.currentDate = currentDate;
 		this.reservationDate = reservationDate;
 		this.description = description;
@@ -61,13 +64,12 @@ public class Reservation implements java.io.Serializable {
 		this.currentDate = other.currentDate;
 		this.reservationDate = other.reservationDate;
 		this.description = other.description;
-
 	}
 	
-	public void cloneDto(ReservationDTO dto) {
-		this.currentDate = dto.getCurrentDate();
-		this.reservationDate = dto.getReservationDate();
-		this.description = dto.getDescription();
+	public void cloneDto(ReservationDTO other) {
+		this.currentDate = other.getCurrentDate();
+		this.reservationDate = other.getReservationDate();
+		this.description = other.getDescription();
 	}
 
 	public Integer getReservationId() {
@@ -94,12 +96,12 @@ public class Reservation implements java.io.Serializable {
 		this.promotion = promotion;
 	}
 
-	public Store getStore() {
-		return store;
+	public Storeprice getStoreprice() {
+		return storeprice;
 	}
 
-	public void setStore(Store store) {
-		this.store = store;
+	public void setStoreprice(Storeprice storeprice) {
+		this.storeprice = storeprice;
 	}
 
 	public Date getCurrentDate() {

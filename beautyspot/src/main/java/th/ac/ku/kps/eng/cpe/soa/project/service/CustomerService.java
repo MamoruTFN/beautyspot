@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.ac.ku.kps.eng.cpe.soa.project.model.Customer;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Reservation;
 import th.ac.ku.kps.eng.cpe.soa.project.repository.CustomerRepository;
 
 @Service
@@ -29,4 +30,8 @@ public class CustomerService {
 		customerRepository.delete(customer);
 	}
 
+	public Customer findByReservation(Reservation reservation) {
+		return customerRepository.findByReservation(reservation);
+	}
+	
 }

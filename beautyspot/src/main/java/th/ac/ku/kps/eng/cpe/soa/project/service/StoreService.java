@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import th.ac.ku.kps.eng.cpe.soa.project.model.Reservation;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Store;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Storeprice;
 import th.ac.ku.kps.eng.cpe.soa.project.repository.StoreRepository;
 
 @Service
@@ -27,5 +29,13 @@ public class StoreService {
 	
 	public void delete(Store store) {
 		storeRepository.delete(store);
+	}
+	
+	public Store findStoreByStoreprice(Storeprice storeprice) {
+		return storeRepository.findStoreByStoreprice(storeprice);
+	}
+	
+	public Store findByReservation(Reservation reservation) {
+		return storeRepository.findByReservation(reservation);
 	}
 }
