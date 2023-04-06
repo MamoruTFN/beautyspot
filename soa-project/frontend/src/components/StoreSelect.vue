@@ -1,6 +1,9 @@
 <template>
-  <div class="py-4 container-fluid">
-    <div style="position: absolute; top: 0px; left: 0px">
+  <div
+    class="py-4 container-fluid"
+    style="background-image: linear-gradient(90deg, rgba(201,251,143,1) 0%, rgba(115,255,69,1) 36%, rgba(0,255,189,1) 100%); min-height: 100vh;"
+  >
+    <div style="position: absolute; top: 0px; left: 0px ">
       <nav
         class="navbar navbar-expand-sm bg-dark navbar-dark"
         style="width: 100vw;"
@@ -91,7 +94,7 @@
                         </p>
                         <p class="text-xs text-secondary mb-0">
                           {{ store.province }} {{ store.district }}
-                          {{ store.subdistrict }} {{ timestamp }}
+                          {{ store.subdistrict }}
                         </p>
                       </td>
                       <td class="align-middle text-start">
@@ -111,7 +114,7 @@
                         </div>
                         <div
                           v-else
-                          style="border-radius: 8%; text-align: center; width: 70px; height: 30px; background-image: url('https://images.pexels.com/photos/6984984/pexels-photo-6984984.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');"
+                          style="border-radius: 8%; text-align: center; width: 70px; height: 30px; background-color: red; color: white;"
                         >
                           <soft-badge
                             color="success"
@@ -132,13 +135,18 @@
                         }}</span>
                       </td>
                       <td class="align-middle">
-                        <a
-                          :href="'/promotion/' + store.storeId"
-                          class="text-secondary font-weight-bold text-xs"
-                          data-toggle="tooltip"
-                          data-original-title="Edit user"
-                          >จอง</a
+                        <div
+                          style="font-size: 20px; border-radius: 8%; justify-content: center; text-align: center; width: 60px; height: 40px; color: white; background-color: black;"
                         >
+                          <a
+                            :href="'/promotion/' + store.storeId"
+                            class="text-secondary font-weight-bold"
+                            data-toggle="tooltip"
+                            data-original-title="Edit user"
+                            style="text-decoration: none; color: white;"
+                            >จอง</a
+                          >
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -146,6 +154,22 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div
+        style="width: 100%; height: auto; display: flex; flex-direction: column; text-align: center; align-items: center; justify-content: center;"
+      >
+        <div
+          style="font-size: 30px; color: white; display: block; flex-direction: column; text-align: center; align-items: center; justify-content: center; margin-top: 20px; border-radius: 8%; width: 80px; height: 50px; background-color: black;"
+        >
+          <a
+            class="text-white font-weight-bold ps-1 mb-0 icon-move-left mt-auto"
+            :href="'/'"
+            style="text-decoration: none;"
+          >
+            กลับ
+            <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+          </a>
         </div>
       </div>
     </div>
@@ -196,7 +220,6 @@ export default {
       var today = new Date()
       const time =
         today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
-      console.log(today)
       this.timestamp = time
     }
   }
