@@ -1,5 +1,8 @@
 package th.ac.ku.kps.eng.cpe.soa.project.api.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +26,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import th.ac.ku.kps.eng.cpe.soa.project.api.util.Response;
-
+import th.ac.ku.kps.eng.cpe.soa.project.model.District;
 import th.ac.ku.kps.eng.cpe.soa.project.model.Promotion;
-
+import th.ac.ku.kps.eng.cpe.soa.project.model.Province;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Store;
+import th.ac.ku.kps.eng.cpe.soa.project.model.Subdistrict;
+import th.ac.ku.kps.eng.cpe.soa.project.model.DTO.StoreDTO;
 import th.ac.ku.kps.eng.cpe.soa.project.service.PromotionService;
 
 @RestController
@@ -52,6 +58,23 @@ public class PromotionRestController {
 		res.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
 		res.setBody(responObject);
 		return new ResponseEntity<Response<ObjectNode>>(res, res.getHttpStatus());
+	}
+	
+	@GetMapping("/")
+	public ResponseEntity<Response<List<Promotion>>> findAll(){
+		Response<List<Promotion>> res = new Response<>();
+		try {
+			List<Promotion> stores = promotionService.findAll();
+			res.setMessage("find success");
+			res.setBody(stores);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<List<Promotion>>>(res, res.getHttpStatus());
+		}catch (Exception ex) {
+			res.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<List<Promotion>>>(res, res.getHttpStatus());
+		}
 	}
 
 	@GetMapping("/{id}")

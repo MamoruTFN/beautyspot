@@ -1,5 +1,7 @@
 package th.ac.ku.kps.eng.cpe.soa.project.api.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +77,7 @@ public class ReservationRestController {
 			@RequestParam("storeId") int storeId, @RequestParam("promotionId") int promotionId) {
 		Response<Reservation> res = new Response<>();
 		try {
+			System.out.println("in");
 			Reservation reservation = new Reservation();
 			Customer customer = new Customer();
 			customer.cloneDto(reservationDTO);
@@ -103,6 +106,29 @@ public class ReservationRestController {
 		Response<Reservation> res = new Response<>();
 		try {
 			Reservation reservation = reservationService.findById(id);
+			res.setBody(reservation);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/max")
+	public ResponseEntity<Response<Reservation>> findReservationByIdMax() {
+		Response<Reservation> res = new Response<>();
+		try {
+			List<Reservation> reservations = reservationService.findAll();
+			Reservation reservation = new Reservation();
+			int id = 1;
+			for(Reservation r : reservations) {
+				if(r.getReservationId() >= id) {
+					id = r.getReservationId();
+					reservation = r;
+				}
+			}
 			res.setBody(reservation);
 			res.setHttpStatus(HttpStatus.OK);
 			return new ResponseEntity<Response<Reservation>>(res, res.getHttpStatus());
