@@ -79,18 +79,37 @@ public class PaymentRestController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Response<Payment>> findById(@PathVariable("id") int id) {
-		Response<Payment> res = new Response<>();
+	public ResponseEntity<Response<PaymentDTO>> findById(@PathVariable("id") int id) {
+		Response<PaymentDTO> res = new Response<>();
 		try {
+			PaymentDTO dto = new PaymentDTO();
 			Payment payment = paymentService.findById(id);
+			Reservation reservation = payment.getReservation();
+			Store store = storeService.findByReservation(reservation);
+			dto.setStoreName(store.getName());
+			dto.setPhoneNumber(store.getPhoneNumber());
+			dto.setReservationDate(reservation.getReservationDate());
+			Promotion promotion  = promotionService.findByReservation(reservation);
+			dto.setPromotionName(promotion.getName());
+			
+			Customer customer = customerService.findByReservation(reservation);
+			dto.setFirstName(customer.getFirstName());
+			dto.setLastName(customer.getLastName());
+			dto.setTel(customer.getTel());
+			
+			Price price = priceService.findByReservation(reservation);
+			dto.setStorepriceName(price.getName());
+
+			dto.setPrice(payment.getPrice());
+			
 			res.setMessage("find " + id + "success");
-			res.setBody(payment);
+			res.setBody(dto);
 			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<Payment>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<PaymentDTO>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<Payment>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<PaymentDTO>>(res, res.getHttpStatus());
 		}
 	}
 
